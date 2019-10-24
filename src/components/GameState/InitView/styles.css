@@ -1,0 +1,29 @@
+.Index-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.Index-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.App-title {
+  font-family: "Fredoka One", sans-serif;
+  font-size: 56px;
+  line-height: 1;
+  margin: 0 0 3rem;
+}
+
+.App-title-number {
+  font-size: 100px;
+}
+
+.App-subtitle {
+  font-size: 22px;
+}

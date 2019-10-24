@@ -1,0 +1,29 @@
+.InitSelect-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.InitSelect-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.InitSelect-title {
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 56px;
+  line-height: 1;
+  margin: 0 0 3rem;
+}
+
+.InitSelect-title-number {
+  font-size: 100px;
+}
+
+.InitSelect-subtitle {
+  font-size: 22px;
+}

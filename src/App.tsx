@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import React from 'react'
+import './App.css'
+import GameState from './components/GameState'
+
+firebase.initializeApp({
+  apiKey: 'AIzaSyANcUCFHaueADM2ak-RyjjZ_ZfuxeSxnnA',
+  authDomain: 'fuchzehnowe.firebaseapp.com',
+  databaseURL: 'https://fuchzehnowe.firebaseio.com',
+  projectId: 'fuchzehnowe',
+  storageBucket: 'fuchzehnowe.appspot.com',
+  messagingSenderId: '861184582125',
+  appId: '1:861184582125:web:325d966a629dbcebebc7e4',
+})
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GameState />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

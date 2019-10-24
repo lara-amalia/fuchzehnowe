@@ -1,0 +1,42 @@
+.ButtonGroup-item {
+  border-radius: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: "Fredoka One", sans-serif;
+  background-color: #4e565c;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 16px;
+  border: none;
+  transition: background-color 150ms ease-out;
+}
+
+.ButtonGroup-item:hover,
+.ButtonGroup-item:active {
+  cursor: pointer;
+  background-color: #79858d;
+}
+
+.ButtonGroup-item:focus {
+  outline: none;
+  box-shadow: 0 0 3px 6px #c3d7df;
+}
+
+.ButtonGroup--tricks .ButtonGroup-item {
+  font-size: 24px;
+  margin: 1rem;
+  width: 80px;
+  height: 80px;
+}
+
+.ButtonGroup--suits {
+  display: grid;
+  grid-template-columns: 160px 160px;
+  grid-template-rows: 160px 160px;
+  grid-gap: 1rem;
+  justify-content: center;
+}
+
+.ButtonGroup--suits .ButtonGroup-item {
+  font-size: 24px;
+}

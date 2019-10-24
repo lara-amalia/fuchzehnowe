@@ -1,0 +1,24 @@
+.Button {
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: "Fredoka One", sans-serif;
+  background-color: #d75c37;
+  color: #fff;
+  padding: 1rem 2rem;
+  font-size: 18px;
+  border: none;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  transition: background-color 150ms ease-out;
+}
+
+.Button:hover,
+.Button:active {
+  cursor: pointer;
+  background-color: #d94012;
+}
+
+.Button:focus {
+  outline: none;
+  box-shadow: 0 0 3px 6px #4e565c;
+}
