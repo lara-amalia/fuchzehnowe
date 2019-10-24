@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
-import './styles.css'
+import React from 'react'
 import Button from '../../../ui/Button'
 import { InitState } from '../InitView'
+import './styles.css'
 
 interface Props {
   onSelection: (state: InitState) => void

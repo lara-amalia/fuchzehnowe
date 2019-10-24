@@ -1,9 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
-// import './styles.css'
-// import Button from '../../../ui/Button'
-import { InitState } from '../InitView'
 import firebase from 'firebase'
-import { Game, Id } from '../../../../types'
+import React, { useRef } from 'react'
+import { Game } from '../../../../types'
 import { GameInfo } from '../../GameState'
 
 interface Props {

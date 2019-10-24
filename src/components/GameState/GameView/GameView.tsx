@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { Game, Id } from '../../../types'
 import firebase from 'firebase'
+import React, { useEffect, useState } from 'react'
+import { Game, Id } from '../../../types'
 import { GameInfo } from '../GameState'
 
 enum GameState {

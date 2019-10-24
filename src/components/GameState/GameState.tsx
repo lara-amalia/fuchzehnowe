@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import InitView from './InitView'
 import GameView from './GameView'
+import InitView from './InitView'
 
 export interface GameInfo {
   gameId: string

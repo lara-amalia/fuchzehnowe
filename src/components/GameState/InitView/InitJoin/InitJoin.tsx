@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { InitState } from '../InitView'
 import firebase from 'firebase'
-import { Game, Id } from '../../../../types'
+import React, { useRef } from 'react'
 import { GameInfo } from '../../GameState'
 
 interface Props {

@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Game, Id } from '../../../types'
-import InitSelect from './InitSelect'
-import InitNew from './InitNew'
+import React, { useState } from 'react'
 import { GameInfo } from '../GameState'
 import InitJoin from './InitJoin'
+import InitNew from './InitNew'
+import InitSelect from './InitSelect'
 
 export enum InitState {
   Select,
