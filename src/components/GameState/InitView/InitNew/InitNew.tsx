@@ -1,20 +1,22 @@
 import firebase from 'firebase'
-import React, { useRef } from 'react'
-import { Game, Player, GameStep, GameInfo } from '../../../../types'
-import Header from '../../../ui/Header'
-import './styles.css'
-import InitLayout from '../../../ui/InitLayout'
+import React, { useState } from 'react'
+import { Game, GameInfo, GameStep, Player } from '../../../../types'
+import BasicLayout from '../../../ui/BasicLayout'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
+  onBack: () => void
 }
 
 /**
  * Start a new game by adding a new game collection and add the first (admin) player.
  */
-const InitNew: React.FC<Props> = ({ onCreation }) => {
-  const userNameInput = useRef<HTMLInputElement>(null)
+const InitNew: React.FC<Props> = ({ onCreation, onBack }) => {
+  const [username, setUsername] = useState('')
 
+  /**
+   * Creates a new game and adds the first (admin) player to the players collection.
+   */
   const createGame = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -32,23 +34,42 @@ const InitNew: React.FC<Props> = ({ onCreation }) => {
         .collection('players')
         .doc(adminId)
         .set({
-          name: userNameInput.current!.value,
+          name: username,
           points: [15],
         } as Player),
     ])
 
     onCreation({ gameId, userId: adminId })
   }
+
   return (
-    <InitLayout>
-      <h1>Neues Spiel</h1>
-      <p>Gib deinen Namen ein!</p>
-      <form onSubmit={createGame}>
-        <input type="text" name="username" ref={userNameInput} />
+    <BasicLayout title="Neues Spiel" onBack={onBack}>
+      {/* <p>
+        Gib deinen Namen ein,
         <br />
-        <input type="submit" value="Create and join game" />
+        um ein neues Spiel zu starten.
+      </p> */}
+      <form onSubmit={createGame}>
+        <div className="input-wrapper">
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={e => setUsername(e.currentTarget.value)}
+            placeholder="Dein Name"
+          />
+          <p className="input-hint">
+            Der Name muss mind. 3 Zeichen lang sein und darf nur Buchstaben
+            beinhalten.
+          </p>
+        </div>
+        <input
+          type="submit"
+          value="Los geht's"
+          disabled={!/^[a-z]{3,}$/i.test(username)}
+        />
       </form>
-    </InitLayout>
+    </BasicLayout>
   )
 }
 

@@ -2,7 +2,7 @@
   border-radius: 16px;
   appearance: none;
   -webkit-appearance: none;
-  font-family: "Fredoka One", sans-serif;
+  font-family: 'Fredoka One', sans-serif;
   background-color: #4e565c;
   color: #fff;
   padding: 1rem 2rem;
@@ -27,16 +27,4 @@
   margin: 1rem;
   width: 80px;
   height: 80px;
-}
-
-.ButtonGroup--suits {
-  display: grid;
-  grid-template-columns: 160px 160px;
-  grid-template-rows: 160px 160px;
-  grid-gap: 1rem;
-  justify-content: center;
-}
-
-.ButtonGroup--suits .ButtonGroup-item {
-  font-size: 24px;
 }

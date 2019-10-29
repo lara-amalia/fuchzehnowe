@@ -3,11 +3,13 @@ import { GameInfo } from '../../../types'
 import InitJoin from './InitJoin'
 import InitNew from './InitNew'
 import InitSelect from './InitSelect'
+import InitRules from './InitRules'
 
 export enum InitState {
   Select,
   New,
   Join,
+  Rules,
 }
 
 interface Props {
@@ -24,9 +26,21 @@ const InitView: React.FC<Props> = ({ onGameInfoSelect }) => {
     case InitState.Select:
       return <InitSelect onSelection={setInitState} />
     case InitState.New:
-      return <InitNew onCreation={onGameInfoSelect} />
+      return (
+        <InitNew
+          onCreation={onGameInfoSelect}
+          onBack={() => setInitState(InitState.Select)}
+        />
+      )
     case InitState.Join:
-      return <InitJoin onCreation={onGameInfoSelect} />
+      return (
+        <InitJoin
+          onCreation={onGameInfoSelect}
+          onBack={() => setInitState(InitState.Select)}
+        />
+      )
+    case InitState.Rules:
+      return <InitRules onBack={() => setInitState(InitState.Select)} />
   }
 }
 

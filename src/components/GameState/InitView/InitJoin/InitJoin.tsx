@@ -1,18 +1,30 @@
 import firebase from 'firebase'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { GameInfo } from '../../../../types'
-import Header from '../../../ui/Header'
-import './styles.css'
-import InitLayout from '../../../ui/InitLayout'
+import BasicLayout from '../../../ui/BasicLayout'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
+  onBack: () => void
 }
 
-const InitJoin: React.FC<Props> = ({ onCreation }) => {
-  const userNameInput = useRef<HTMLInputElement>(null)
+/**
+ * Join an existing game by entering the game ID and a user name.
+ */
+const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
   const gameIdInput = useRef<HTMLInputElement>(null)
+  const [username, setUsername] = useState('')
 
+  const canJoin = () => {
+    const usernameValid = /^[a-z]{3,}$/i.test(username)
+    const gameidValid = true // TODO: check game ID
+    return usernameValid && gameidValid
+  }
+
+  /**
+   * Creates a new user and adds it to the players collection
+   * of the given game.
+   */
   const joinGame = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -25,15 +37,14 @@ const InitJoin: React.FC<Props> = ({ onCreation }) => {
       .collection('players')
       .doc(userId)
       .set({
-        name: userNameInput.current!.value,
+        name: username,
         points: [10],
       })
 
     onCreation({ gameId, userId })
   }
   return (
-    <InitLayout>
-      <h1>Mitspielen</h1>
+    <BasicLayout title="Mitspielen" onBack={onBack}>
       <p>Gib die Spiel-ID und deinen Namen ein!</p>
       <form onSubmit={joinGame}>
         <input
@@ -43,16 +54,22 @@ const InitJoin: React.FC<Props> = ({ onCreation }) => {
           ref={gameIdInput}
         />
         <br />
-        <input
-          type="text"
-          name="username"
-          placeholder="user name"
-          ref={userNameInput}
-        />
-        <br />
-        <input type="submit" value="Mitspielen" />
+        <div className="input-wrapper">
+          <input
+            type="text"
+            name="username"
+            placeholder="Dein Name"
+            value={username}
+            onChange={e => setUsername(e.currentTarget.value)}
+          />
+          <p className="input-hint">
+            Der Name muss mind. 3 Zeichen lang sein und darf nur Buchstaben
+            beinhalten.
+          </p>
+        </div>
+        <input type="submit" value="Mitspielen" disabled={!canJoin()} />
       </form>
-    </InitLayout>
+    </BasicLayout>
   )
 }
 

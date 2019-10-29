@@ -20,7 +20,12 @@ const InitSelect: React.FC<Props> = ({ onSelection }) => {
         <Button onClick={() => onSelection(InitState.Join)}>Mitspielen</Button>
       </div>
       <p>
-        <a href="#">Spielregeln</a>
+        <Button
+          onClick={() => onSelection(InitState.Rules)}
+          variant="secondary"
+        >
+          Spielregeln
+        </Button>
       </p>
     </div>
   )
