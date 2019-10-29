@@ -1,7 +1,9 @@
 import firebase from 'firebase'
 import React, { useRef } from 'react'
-import { Game } from '../../../../types'
+import { Game, Player } from '../../../../types'
 import { GameInfo } from '../../GameState'
+import Header from '../../../ui/Header'
+import './styles.css'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
@@ -23,6 +25,7 @@ const InitNew: React.FC<Props> = ({ onCreation }) => {
     await Promise.all([
       gamesCollection.doc(gameId).set({
         adminId,
+        currentRound: 0,
       } as Game),
       gamesCollection
         .doc(gameId)
@@ -30,20 +33,25 @@ const InitNew: React.FC<Props> = ({ onCreation }) => {
         .doc(adminId)
         .set({
           name: userNameInput.current!.value,
-        }),
+          points: [15],
+        } as Player),
     ])
 
     onCreation({ gameId, userId: adminId })
   }
   return (
-    <div className="InitNew-view">
-      <h1>Neues Spiel</h1>
-      <p>Gib deinen Namen ein!</p>
-      <form onSubmit={createGame}>
-        <input type="text" name="username" ref={userNameInput} />
-        <input type="submit" value="Create and join game" />
-      </form>
-    </div>
+    <>
+      <Header />
+      <div className="InitNew-view">
+        <h1>Neues Spiel</h1>
+        <p>Gib deinen Namen ein!</p>
+        <form onSubmit={createGame}>
+          <input type="text" name="username" ref={userNameInput} />
+          <br />
+          <input type="submit" value="Create and join game" />
+        </form>
+      </div>
+    </>
   )
 }
 

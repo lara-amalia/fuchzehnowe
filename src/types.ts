@@ -3,7 +3,11 @@ export interface Id {
 }
 
 export interface Game {
-  name?: string
-  adminId?: string
-  players: any
+  adminId: string
+  currentRound: number
+}
+
+export interface Player {
+  name: string
+  points: number[]
 }

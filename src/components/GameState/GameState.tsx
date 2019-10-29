@@ -8,7 +8,10 @@ export interface GameInfo {
 }
 
 const GameState: React.FC = () => {
-  const [gameInfo, setGameInfo] = useState<GameInfo>()
+  const [gameInfo, setGameInfo] = useState<GameInfo>({
+    gameId: 'jGlYVQzjlgzzvocK9aiF',
+    userId: 'QDTpLeNmZztszZDrJJQe',
+  })
 
   // If there is no running game, return to init screen.
   if (!gameInfo) {

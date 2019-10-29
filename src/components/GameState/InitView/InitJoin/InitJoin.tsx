@@ -1,6 +1,8 @@
 import firebase from 'firebase'
 import React, { useRef } from 'react'
 import { GameInfo } from '../../GameState'
+import Header from '../../../ui/Header'
+import './styles.css'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
@@ -23,32 +25,36 @@ const InitJoin: React.FC<Props> = ({ onCreation }) => {
       .doc(userId)
       .set({
         name: userNameInput.current!.value,
+        points: [10],
       })
 
     onCreation({ gameId, userId })
   }
   return (
-    <div className="InitJoin-view">
-      <h1>Mitspielen</h1>
-      <p>Gib die Spiel-ID und deinen Namen ein!</p>
-      <form onSubmit={joinGame}>
-        <input
-          type="text"
-          name="gameid"
-          placeholder="game id"
-          ref={gameIdInput}
-        />
-        <br />
-        <input
-          type="text"
-          name="username"
-          placeholder="user name"
-          ref={userNameInput}
-        />
-        <br />
-        <input type="submit" value="Mitspielen" />
-      </form>
-    </div>
+    <>
+      <Header />
+      <div className="InitJoin-view">
+        <h1>Mitspielen</h1>
+        <p>Gib die Spiel-ID und deinen Namen ein!</p>
+        <form onSubmit={joinGame}>
+          <input
+            type="text"
+            name="gameid"
+            placeholder="game id"
+            ref={gameIdInput}
+          />
+          <br />
+          <input
+            type="text"
+            name="username"
+            placeholder="user name"
+            ref={userNameInput}
+          />
+          <br />
+          <input type="submit" value="Mitspielen" />
+        </form>
+      </div>
+    </>
   )
 }
 

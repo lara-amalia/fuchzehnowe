@@ -1,7 +1,8 @@
-.Button {
+.Button,
+input[type='submit'] {
   appearance: none;
   -webkit-appearance: none;
-  font-family: "Fredoka One", sans-serif;
+  font-family: 'Fredoka One', sans-serif;
   background-color: #d75c37;
   color: #fff;
   padding: 1rem 2rem;
@@ -13,12 +14,15 @@
 }
 
 .Button:hover,
-.Button:active {
+input[type='submit']:hover,
+.Button:active,
+input[type='submit']:active {
   cursor: pointer;
   background-color: #d94012;
 }
 
-.Button:focus {
+.Button:focus,
+input[type='submit']:focus {
   outline: none;
   box-shadow: 0 0 3px 6px #4e565c;
 }
