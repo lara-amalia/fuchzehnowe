@@ -1,11 +1,7 @@
 import React, { useState } from 'react'
 import GameView from './GameView'
 import InitView from './InitView'
-
-export interface GameInfo {
-  gameId: string
-  userId: string
-}
+import { GameInfo } from '../../types'
 
 const GameState: React.FC = () => {
   const [gameInfo, setGameInfo] = useState<GameInfo>({

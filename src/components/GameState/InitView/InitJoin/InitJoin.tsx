@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 import React, { useRef } from 'react'
-import { GameInfo } from '../../GameState'
+import { GameInfo } from '../../../../types'
 import Header from '../../../ui/Header'
 import './styles.css'
 

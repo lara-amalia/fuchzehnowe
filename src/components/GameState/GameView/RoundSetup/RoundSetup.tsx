@@ -1,21 +1,20 @@
 import firebase from 'firebase'
 import React, { useEffect, useState } from 'react'
+import { Game, Id, Player } from '../../../../types'
 import Header from '../../../ui/Header'
 // import './styles.css'
 import Button from '../../../ui/Button'
 import { unwrapQuery } from '../../../../util/data'
 import useGame from '../../../../util/useGame'
 
-const GameRoundOverview = () => {
+const GameRoundSetup = () => {
   const { game, gameInfo } = useGame()
   return (
     <>
       <Header />
-      round overview: welcher spieler macht wie viel stiche in welcher farbe?
-      <br />
-      join game or leave game?
+      round setup
     </>
   )
 }
 
-export default GameRoundOverview
+export default GameRoundSetup

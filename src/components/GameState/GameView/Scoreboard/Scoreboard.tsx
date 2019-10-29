@@ -1,18 +1,14 @@
 import firebase from 'firebase'
 import React, { useEffect, useState } from 'react'
-import { GameInfo } from '../../GameState'
-import { Game, Id, Player } from '../../../../types'
+import { Game, GameStep, Id, Player } from '../../../../types'
+import { unwrapQuery } from '../../../../util/data'
+import useGame from '../../../../util/useGame'
+import Button from '../../../ui/Button'
 import Header from '../../../ui/Header'
 import './styles.css'
-import Button from '../../../ui/Button'
-import { unwrapQuery } from '../../../../util/data'
 
-interface Props {
-  gameInfo: GameInfo
-  game: Game
-}
-
-const GameScoreboard: React.FC<Props> = ({ gameInfo, game }) => {
+const GameScoreboard = () => {
+  const { game, gameInfo } = useGame()
   const [players, setPlayers] = useState<(Player & Id)[]>()
 
   useEffect(() => {
@@ -32,7 +28,7 @@ const GameScoreboard: React.FC<Props> = ({ gameInfo, game }) => {
       .collection('games')
       .doc(gameInfo.gameId)
       .update({
-        currentRound: game.currentRound + 1,
+        step: GameStep.Setup,
       } as Partial<Game>)
   }
 

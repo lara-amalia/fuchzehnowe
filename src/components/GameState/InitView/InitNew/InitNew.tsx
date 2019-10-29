@@ -1,7 +1,6 @@
 import firebase from 'firebase'
 import React, { useRef } from 'react'
-import { Game, Player } from '../../../../types'
-import { GameInfo } from '../../GameState'
+import { Game, Player, GameStep, GameInfo } from '../../../../types'
 import Header from '../../../ui/Header'
 import './styles.css'
 
@@ -25,7 +24,7 @@ const InitNew: React.FC<Props> = ({ onCreation }) => {
     await Promise.all([
       gamesCollection.doc(gameId).set({
         adminId,
-        currentRound: 0,
+        step: GameStep.Scoreboard,
       } as Game),
       gamesCollection
         .doc(gameId)

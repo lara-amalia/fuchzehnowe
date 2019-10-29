@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { GameInfo } from '../GameState'
+import { GameInfo } from '../../../types'
 import InitJoin from './InitJoin'
 import InitNew from './InitNew'
 import InitSelect from './InitSelect'

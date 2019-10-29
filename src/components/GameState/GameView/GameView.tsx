@@ -1,17 +1,11 @@
 import firebase from 'firebase'
-import React, { useEffect, useState, useRef } from 'react'
-import { Game, Id } from '../../../types'
-import { GameInfo } from '../GameState'
-import GameScoreboard from './Scoreboard'
+import React, { useEffect, useState } from 'react'
+import { Game, GameInfo, GameStep, Id } from '../../../types'
 import { unwrapDocument } from '../../../util/data'
+import { GameContext } from '../../../util/useGame'
 import GameRoundOverview from './RoundOverview'
-
-enum GameState {
-  Scoreboard,
-  RoundSetup,
-  RoundOverview,
-  RoundDone,
-}
+import GameRoundSetup from './RoundSetup'
+import GameScoreboard from './Scoreboard'
 
 interface Props {
   gameInfo: GameInfo
@@ -19,25 +13,13 @@ interface Props {
 
 const GameView: React.FC<Props> = ({ gameInfo }) => {
   const [game, setGame] = useState<Game & Id>()
-  const [gameState, setGameState] = useState<GameState>(GameState.Scoreboard)
-  const currentRound = useRef(0)
 
   useEffect(() => {
     const unsubscribe = firebase
       .firestore()
       .collection('games')
       .doc(gameInfo.gameId)
-      .onSnapshot(s => {
-        const gameData = unwrapDocument<Game>(s)
-        setGame(gameData)
-        if (!gameData) {
-          return
-        }
-        if (gameData.currentRound > currentRound.current) {
-          setGameState(GameState.RoundOverview)
-          currentRound.current = gameData.currentRound
-        }
-      })
+      .onSnapshot(s => setGame(unwrapDocument(s)))
 
     return () => unsubscribe()
   }, [gameInfo.gameId])
@@ -46,14 +28,22 @@ const GameView: React.FC<Props> = ({ gameInfo }) => {
     return <p>loading game (id: {gameInfo.gameId})...</p>
   }
 
-  switch (gameState) {
-    case GameState.Scoreboard:
-      return <GameScoreboard gameInfo={gameInfo} game={game} />
-    case GameState.RoundOverview:
-      return <GameRoundOverview gameInfo={gameInfo} game={game} />
-    default:
-      return <p>GameView: {gameInfo.gameId}</p>
-  }
+  return (
+    <GameContext.Provider value={{ game, gameInfo }}>
+      {(() => {
+        switch (game.step) {
+          case GameStep.Scoreboard:
+            return <GameScoreboard />
+          case GameStep.Setup:
+            return <GameRoundSetup />
+          case GameStep.Overview:
+            return <GameRoundOverview />
+          default:
+            return <p>GameView: {gameInfo.gameId}</p>
+        }
+      })()}
+    </GameContext.Provider>
+  )
 }
 
 export default GameView
