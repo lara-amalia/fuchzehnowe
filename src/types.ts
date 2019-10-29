@@ -30,3 +30,10 @@ export interface GameInfo {
   gameId: string
   userId: string
 }
+
+export enum Suit {
+  Hearts = 'hearts',
+  Bells = 'bells',
+  Acorns = 'acorns',
+  Leaves = 'leaves',
+}

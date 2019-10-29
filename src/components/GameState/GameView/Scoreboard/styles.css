@@ -1,9 +1,9 @@
-.GameScoreboard-title {
+.Scoreboard-title {
   padding: 1rem 2rem;
   text-align: center;
 }
 
-.GameScoreboard-player {
+.Scoreboard-player {
   padding: 1rem 2rem;
   border-bottom: 2px solid #5c6671;
   margin-bottom: 0;
@@ -13,11 +13,11 @@
   justify-content: space-between;
 }
 
-.GameScoreboard-player:first-child {
+.Scoreboard-player:first-child {
   border-top: 2px solid #5c6671;
 }
 
-.GameScoreboard-actions {
+.Scoreboard-actions {
   text-align: center;
   padding: 1rem 2rem;
 }

@@ -7,7 +7,7 @@ import Button from '../../../ui/Button'
 import Header from '../../../ui/Header'
 import './styles.css'
 
-const GameScoreboard = () => {
+const Scoreboard = () => {
   const { game, gameInfo } = useGame()
   const [players, setPlayers] = useState<(Player & Id)[]>()
 
@@ -35,15 +35,15 @@ const GameScoreboard = () => {
   return (
     <>
       <Header />
-      <div className="GameScoreboard">
-        <div className="GameScoreboard-title">
+      <div className="Scoreboard">
+        <div className="Scoreboard-title">
           <h1>Punktestand</h1>
           <p>Scoreboard of Game: {gameInfo.gameId}</p>
         </div>
-        <div className="GameScoreboard-playerlist">
+        <div className="Scoreboard-playerlist">
           {players ? (
             players.map(player => (
-              <p key={player.id} className="GameScoreboard-player">
+              <p key={player.id} className="Scoreboard-player">
                 <span className="Player-name">{player.name}</span>
                 <span className="Player-points">{player.points[0]}</span>
               </p>
@@ -53,7 +53,7 @@ const GameScoreboard = () => {
           )}
         </div>
         {game.adminId === gameInfo.userId && (
-          <div className="GameScoreboard-actions">
+          <div className="Scoreboard-actions">
             <Button onClick={startNextRound}>Runde starten</Button>
           </div>
         )}
@@ -62,4 +62,4 @@ const GameScoreboard = () => {
   )
 }
 
-export default GameScoreboard
+export default Scoreboard

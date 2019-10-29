@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { Game, GameInfo, GameStep, Id } from '../../../types'
 import { unwrapDocument } from '../../../util/data'
 import { GameContext } from '../../../util/useGame'
-import GameRoundOverview from './RoundOverview'
-import GameRoundSetup from './RoundSetup'
-import GameScoreboard from './Scoreboard'
+import RoundOverview from './RoundOverview'
+import RoundSetup from './RoundSetup'
+import Scoreboard from './Scoreboard'
+import RoundDone from './RoundDone'
 
 interface Props {
   gameInfo: GameInfo
@@ -33,11 +34,13 @@ const GameView: React.FC<Props> = ({ gameInfo }) => {
       {(() => {
         switch (game.step) {
           case GameStep.Scoreboard:
-            return <GameScoreboard />
+            return <Scoreboard />
           case GameStep.Setup:
-            return <GameRoundSetup />
+            return <RoundSetup />
           case GameStep.Overview:
-            return <GameRoundOverview />
+            return <RoundOverview />
+          case GameStep.Done:
+            return <RoundDone />
           default:
             return <p>GameView: {gameInfo.gameId}</p>
         }

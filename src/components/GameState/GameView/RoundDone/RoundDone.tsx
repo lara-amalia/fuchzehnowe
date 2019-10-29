@@ -6,16 +6,14 @@ import Button from '../../../ui/Button'
 import { unwrapQuery } from '../../../../util/data'
 import useGame from '../../../../util/useGame'
 
-const RoundOverview = () => {
+const RoundDone = () => {
   const { game, gameInfo } = useGame()
   return (
     <>
       <Header />
-      round overview: welcher spieler macht wie viel stiche in welcher farbe?
-      <br />
-      join game or leave game?
+      round done --> enter tricks
     </>
   )
 }
 
-export default RoundOverview
+export default RoundDone

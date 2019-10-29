@@ -3,6 +3,7 @@ import React, { useRef } from 'react'
 import { Game, Player, GameStep, GameInfo } from '../../../../types'
 import Header from '../../../ui/Header'
 import './styles.css'
+import InitLayout from '../../../ui/InitLayout'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
@@ -39,18 +40,15 @@ const InitNew: React.FC<Props> = ({ onCreation }) => {
     onCreation({ gameId, userId: adminId })
   }
   return (
-    <>
-      <Header />
-      <div className="InitNew-view">
-        <h1>Neues Spiel</h1>
-        <p>Gib deinen Namen ein!</p>
-        <form onSubmit={createGame}>
-          <input type="text" name="username" ref={userNameInput} />
-          <br />
-          <input type="submit" value="Create and join game" />
-        </form>
-      </div>
-    </>
+    <InitLayout>
+      <h1>Neues Spiel</h1>
+      <p>Gib deinen Namen ein!</p>
+      <form onSubmit={createGame}>
+        <input type="text" name="username" ref={userNameInput} />
+        <br />
+        <input type="submit" value="Create and join game" />
+      </form>
+    </InitLayout>
   )
 }
 
