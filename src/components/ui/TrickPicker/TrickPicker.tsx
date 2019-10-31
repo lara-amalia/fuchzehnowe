@@ -1,23 +1,24 @@
 import clsx from 'clsx'
 import React from 'react'
 import '../../../styles/common/picker.css'
-import { Suit } from '../../../types'
 import './styles.css'
 
 interface Props {
-  value?: Suit
-  onChange: (suit: Suit) => void
+  minZero?: boolean
+  value?: number
+  onChange: (tricks: number) => void
 }
 
-const SuitPicker: React.FC<Props> = ({ value, onChange }) => {
+const TrickPicker: React.FC<Props> = ({ onChange, value, minZero = false }) => {
+  const tricks = minZero ? [0, 1, 2, 3, 4, 5] : [1, 2, 3, 4, 5]
   return (
-    <div className="SuitPicker">
-      {Object.values(Suit).map(val => (
+    <div className="TrickPicker">
+      {tricks.map(val => (
         <button
           key={val}
           className={clsx(
             'Picker-item',
-            'SuitPicker-item',
+            'TrickPicker-item',
             value === val && 'Picker-item--selected',
           )}
           onClick={() => onChange(val)}
@@ -29,4 +30,4 @@ const SuitPicker: React.FC<Props> = ({ value, onChange }) => {
   )
 }
 
-export default SuitPicker
+export default TrickPicker

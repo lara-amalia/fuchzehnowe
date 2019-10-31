@@ -1,26 +1,14 @@
+import clsx from 'clsx'
 import firebase from 'firebase'
-import React, { useEffect, useState } from 'react'
-import { Game, GameStep, Id, Player } from '../../../../types'
-import { unwrapQuery } from '../../../../util/data'
+import React from 'react'
+import { Game, GameStep } from '../../../../types'
 import useGame from '../../../../util/useGame'
 import Button from '../../../ui/Button'
 import Header from '../../../ui/Header'
 import './styles.css'
 
 const Scoreboard = () => {
-  const { game, gameInfo } = useGame()
-  const [players, setPlayers] = useState<(Player & Id)[]>()
-
-  useEffect(() => {
-    const unsubscribe = firebase
-      .firestore()
-      .collection('games')
-      .doc(gameInfo.gameId)
-      .collection('players')
-      .onSnapshot(s => setPlayers(unwrapQuery(s)))
-
-    return () => unsubscribe()
-  }, [gameInfo.gameId])
+  const { game, gameInfo, players } = useGame()
 
   const startNextRound = () => {
     firebase
@@ -41,16 +29,18 @@ const Scoreboard = () => {
           <p>Scoreboard of Game: {gameInfo.gameId}</p>
         </div>
         <div className="Scoreboard-playerlist">
-          {players ? (
-            players.map(player => (
-              <p key={player.id} className="Scoreboard-player">
-                <span className="Player-name">{player.name}</span>
-                <span className="Player-points">{player.points[0]}</span>
-              </p>
-            ))
-          ) : (
-            <p>no players</p>
-          )}
+          {players.map(player => (
+            <p
+              key={player.id}
+              className={clsx(
+                'Scoreboard-player',
+                player.id === gameInfo.userId && 'Scoreboard-player--me',
+              )}
+            >
+              <span className="Player-name">{player.name}</span>
+              <span className="Player-points">{player.points[0]}</span>
+            </p>
+          ))}
         </div>
         {game.adminId === gameInfo.userId && (
           <div className="Scoreboard-actions">

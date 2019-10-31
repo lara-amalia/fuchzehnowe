@@ -1,12 +1,21 @@
 import React from 'react'
 import './Header.css'
 import Button from '../Button'
+import useGame from '../../../util/useGame'
 
 interface Props {
   onBack?: () => void
 }
 
 const Header: React.FC<Props> = ({ onBack }) => {
+  const { gameInfo, players } = useGame()
+  const currentUser = players.find(p => p.id === gameInfo.userId)
+  let userName
+
+  if (currentUser) {
+    userName = currentUser.name
+  }
+
   return (
     <header className="Header">
       {onBack && (
@@ -25,6 +34,7 @@ const Header: React.FC<Props> = ({ onBack }) => {
         </div>
       )}
       <span className="Header-title">15 owe</span>
+      {userName && <span className="Header-username">{userName}</span>}
     </header>
   )
 }

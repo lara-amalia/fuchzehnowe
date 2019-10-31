@@ -1,0 +1,11 @@
+.TrickPicker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.TrickPicker-item {
+  width: 80px;
+  height: 80px;
+  margin: 0 1rem 1rem;
+}

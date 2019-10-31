@@ -1,0 +1,24 @@
+.Picker-item {
+  border-radius: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: 'Fredoka One', sans-serif;
+  background-color: #4e565c;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 16px;
+  border: none;
+  transition: background-color 150ms ease-out;
+  font-size: 24px;
+}
+
+.Picker-item--selected {
+  border: 3px solid #d75c37;
+  background-color: #79858d;
+}
+
+.Picker-item:hover,
+.Picker-item:active {
+  cursor: pointer;
+  background-color: #79858d;
+}

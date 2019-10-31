@@ -13,6 +13,10 @@
   justify-content: space-between;
 }
 
+.Scoreboard-player--me {
+  color: #d75c37;
+}
+
 .Scoreboard-player:first-child {
   border-top: 2px solid #5c6671;
 }

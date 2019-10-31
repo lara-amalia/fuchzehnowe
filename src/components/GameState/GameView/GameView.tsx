@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 import React, { useEffect, useState } from 'react'
-import { Game, GameInfo, GameStep, Id } from '../../../types'
-import { unwrapDocument } from '../../../util/data'
+import { Game, GameInfo, GameStep, Id, Player } from '../../../types'
+import { unwrapDocument, unwrapQuery } from '../../../util/data'
 import { GameContext } from '../../../util/useGame'
 import RoundOverview from './RoundOverview'
 import RoundSetup from './RoundSetup'
@@ -14,15 +14,20 @@ interface Props {
 
 const GameView: React.FC<Props> = ({ gameInfo }) => {
   const [game, setGame] = useState<Game & Id>()
+  const [players, setPlayers] = useState<(Player & Id)[]>([])
 
   useEffect(() => {
-    const unsubscribe = firebase
+    const gameDoc = firebase
       .firestore()
       .collection('games')
       .doc(gameInfo.gameId)
-      .onSnapshot(s => setGame(unwrapDocument(s)))
 
-    return () => unsubscribe()
+    const unsubscribeArr = [
+      gameDoc.onSnapshot(s => setGame(unwrapDocument(s))),
+      gameDoc.collection('players').onSnapshot(s => setPlayers(unwrapQuery(s))),
+    ]
+
+    return () => unsubscribeArr.forEach(u => u())
   }, [gameInfo.gameId])
 
   if (!game) {
@@ -30,7 +35,7 @@ const GameView: React.FC<Props> = ({ gameInfo }) => {
   }
 
   return (
-    <GameContext.Provider value={{ game, gameInfo }}>
+    <GameContext.Provider value={{ game, gameInfo, players }}>
       {(() => {
         switch (game.step) {
           case GameStep.Scoreboard:

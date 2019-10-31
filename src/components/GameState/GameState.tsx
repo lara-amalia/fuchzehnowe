@@ -4,7 +4,10 @@ import InitView from './InitView'
 import { GameInfo } from '../../types'
 
 const GameState: React.FC = () => {
-  const [gameInfo, setGameInfo] = useState<GameInfo>()
+  const [gameInfo, setGameInfo] = useState<GameInfo>({
+    gameId: 'jGlYVQzjlgzzvocK9aiF',
+    userId: 'QDTpLeNmZztszZDrJJQe',
+  })
 
   /**
    * 

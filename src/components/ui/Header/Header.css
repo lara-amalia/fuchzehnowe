@@ -16,3 +16,7 @@
 .Header-left-actions {
   justify-self: start;
 }
+
+.Header-username {
+  justify-self: end;
+}

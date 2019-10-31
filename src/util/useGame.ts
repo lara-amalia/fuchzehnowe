@@ -1,13 +1,15 @@
 import { createContext, useContext } from 'react'
-import { GameInfo, Game, GameStep } from '../types'
+import { GameInfo, Game, GameStep, Player, Id } from '../types'
 
 export interface GameContext {
-  game: Game
+  game: Game & Id
+  players: (Player & Id)[]
   gameInfo: GameInfo
 }
 
 export const GameContext = createContext<GameContext>({
   game: {
+    id: '',
     adminId: '',
     step: GameStep.Scoreboard,
     rounds: [],
@@ -16,6 +18,7 @@ export const GameContext = createContext<GameContext>({
     gameId: '',
     userId: '',
   },
+  players: [],
 })
 
 export default () => useContext(GameContext)
