@@ -3,10 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { Game, GameInfo, GameStep, Id, Player } from '../../../types'
 import { unwrapDocument, unwrapQuery } from '../../../util/data'
 import { GameContext } from '../../../util/useGame'
-import RoundOverview from './RoundOverview'
 import RoundSetup from './RoundSetup'
 import Scoreboard from './Scoreboard'
-import RoundDone from './RoundDone'
+import GamePlaying from './GamePlaying'
 
 interface Props {
   gameInfo: GameInfo
@@ -30,22 +29,22 @@ const GameView: React.FC<Props> = ({ gameInfo }) => {
     return () => unsubscribeArr.forEach(u => u())
   }, [gameInfo.gameId])
 
-  if (!game) {
+  const currentPlayer = players.find(p => p.id === gameInfo.userId)
+
+  if (!game || !currentPlayer) {
     return <p>loading game (id: {gameInfo.gameId})...</p>
   }
 
   return (
-    <GameContext.Provider value={{ game, gameInfo, players }}>
+    <GameContext.Provider value={{ game, gameInfo, players, currentPlayer }}>
       {(() => {
         switch (game.step) {
           case GameStep.Scoreboard:
             return <Scoreboard />
           case GameStep.Setup:
             return <RoundSetup />
-          case GameStep.Overview:
-            return <RoundOverview />
-          case GameStep.Done:
-            return <RoundDone />
+          case GameStep.Playing:
+            return <GamePlaying />
           default:
             return <p>GameView: {gameInfo.gameId}</p>
         }

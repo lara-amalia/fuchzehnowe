@@ -1,21 +1,13 @@
 import React from 'react'
-import './Header.css'
 import Button from '../Button'
-import useGame from '../../../util/useGame'
+import './Header.css'
 
 interface Props {
   onBack?: () => void
+  userName?: string
 }
 
-const Header: React.FC<Props> = ({ onBack }) => {
-  const { gameInfo, players } = useGame()
-  const currentUser = players.find(p => p.id === gameInfo.userId)
-  let userName
-
-  if (currentUser) {
-    userName = currentUser.name
-  }
-
+const Header: React.FC<Props> = ({ onBack, userName }) => {
   return (
     <header className="Header">
       {onBack && (

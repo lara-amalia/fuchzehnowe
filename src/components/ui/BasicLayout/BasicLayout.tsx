@@ -5,12 +5,18 @@ import './styles.css'
 interface Props {
   title: string
   onBack?: () => void
+  userName?: string
 }
 
-const BasicLayout: React.FC<Props> = ({ children, title, onBack }) => {
+const BasicLayout: React.FC<Props> = ({
+  children,
+  title,
+  onBack,
+  userName,
+}) => {
   return (
     <>
-      <Header onBack={onBack} />
+      <Header onBack={onBack} userName={userName} />
       <div className="BasicLayout">
         <h1 className="BasicLayout-title">{title}</h1>
         {children}

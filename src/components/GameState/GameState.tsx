@@ -6,7 +6,8 @@ import { GameInfo } from '../../types'
 const GameState: React.FC = () => {
   const [gameInfo, setGameInfo] = useState<GameInfo>({
     gameId: 'jGlYVQzjlgzzvocK9aiF',
-    userId: 'QDTpLeNmZztszZDrJJQe',
+    // userId: 'NNkewQYGcbigZYZ8JZDL', // Momo
+    userId: 'QDTpLeNmZztszZDrJJQe', // Lara
   })
 
   /**

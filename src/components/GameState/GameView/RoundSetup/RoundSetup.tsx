@@ -9,7 +9,7 @@ import TrickPicker from '../../../ui/TrickPicker'
 import './styles.css'
 
 const RoundSetup = () => {
-  const { game, gameInfo } = useGame()
+  const { game, gameInfo, currentPlayer } = useGame()
   const [suit, setSuit] = useState<Suit>()
   const [tricks, setTricks] = useState<number>()
 
@@ -19,7 +19,7 @@ const RoundSetup = () => {
       .collection('games')
       .doc(gameInfo.gameId)
       .update({
-        step: GameStep.Overview,
+        step: GameStep.Playing,
         rounds: [
           ...game.rounds,
           {
@@ -32,7 +32,10 @@ const RoundSetup = () => {
   }
 
   return (
-    <BasicLayout title={`Runde #${game.rounds.length + 1}`}>
+    <BasicLayout
+      title={`Runde #${game.rounds.length + 1}`}
+      userName={currentPlayer.name}
+    >
       <div className="RoundSetup">
         <h2>Trumpf wählen</h2>
         <SuitPicker value={suit} onChange={setSuit} />

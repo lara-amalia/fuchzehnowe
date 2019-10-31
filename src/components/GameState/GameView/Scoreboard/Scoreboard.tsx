@@ -8,7 +8,7 @@ import Header from '../../../ui/Header'
 import './styles.css'
 
 const Scoreboard = () => {
-  const { game, gameInfo, players } = useGame()
+  const { game, gameInfo, players, currentPlayer } = useGame()
 
   const startNextRound = () => {
     firebase
@@ -22,7 +22,7 @@ const Scoreboard = () => {
 
   return (
     <>
-      <Header />
+      <Header userName={currentPlayer.name} />
       <div className="Scoreboard">
         <div className="Scoreboard-title">
           <h1>Punktestand</h1>
@@ -42,7 +42,7 @@ const Scoreboard = () => {
             </p>
           ))}
         </div>
-        {game.adminId === gameInfo.userId && (
+        {game.adminId === gameInfo.userId && game.step === GameStep.Scoreboard && (
           <div className="Scoreboard-actions">
             <Button onClick={startNextRound}>Runde starten</Button>
           </div>

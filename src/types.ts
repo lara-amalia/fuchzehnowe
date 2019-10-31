@@ -1,8 +1,7 @@
 export enum GameStep {
   Scoreboard = 'scoreboard',
   Setup = 'setup',
-  Overview = 'overview',
-  Done = 'done',
+  Playing = 'playing',
 }
 
 export interface Id {

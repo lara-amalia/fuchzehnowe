@@ -5,6 +5,7 @@ export interface GameContext {
   game: Game & Id
   players: (Player & Id)[]
   gameInfo: GameInfo
+  currentPlayer: Player & Id
 }
 
 export const GameContext = createContext<GameContext>({
@@ -19,6 +20,21 @@ export const GameContext = createContext<GameContext>({
     userId: '',
   },
   players: [],
+  currentPlayer: {
+    id: '',
+    name: '',
+    points: [],
+  },
 })
 
-export default () => useContext(GameContext)
+export default () => {
+  const ctx = useContext(GameContext)
+  const { game } = ctx
+
+  const currentRound = game.rounds.length
+
+  return {
+    ...ctx,
+    currentRound,
+  }
+}
