@@ -2,6 +2,7 @@ import firebase from 'firebase'
 import React, { useRef, useState } from 'react'
 import { GameInfo } from '../../../../types'
 import BasicLayout from '../../../ui/BasicLayout'
+import { FUCHZEHN } from '../../../../util/constants'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
@@ -38,7 +39,7 @@ const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
       .doc(userId)
       .set({
         name: username,
-        points: [10],
+        points: [FUCHZEHN],
       })
 
     onCreation({ gameId, userId })

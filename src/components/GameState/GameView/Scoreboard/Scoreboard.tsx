@@ -29,18 +29,26 @@ const Scoreboard = () => {
           <p>Scoreboard of Game: {gameInfo.gameId}</p>
         </div>
         <div className="Scoreboard-playerlist">
-          {players.map(player => (
-            <p
-              key={player.id}
-              className={clsx(
-                'Scoreboard-player',
-                player.id === gameInfo.userId && 'Scoreboard-player--me',
-              )}
-            >
-              <span className="Player-name">{player.name}</span>
-              <span className="Player-points">{player.points[0]}</span>
-            </p>
-          ))}
+          {players
+            .sort((a, b) => {
+              return (
+                a.points[a.points.length - 1] - b.points[b.points.length - 1]
+              )
+            })
+            .map(player => (
+              <p
+                key={player.id}
+                className={clsx(
+                  'Scoreboard-player',
+                  player.id === gameInfo.userId && 'Scoreboard-player--me',
+                )}
+              >
+                <span className="Player-name">{player.name}</span>
+                <span className="Player-points">
+                  {player.points[player.points.length - 1]}
+                </span>
+              </p>
+            ))}
         </div>
         {game.adminId === gameInfo.userId && game.step === GameStep.Scoreboard && (
           <div className="Scoreboard-actions">

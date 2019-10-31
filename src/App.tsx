@@ -1,8 +1,8 @@
+import React from 'react'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import React from 'react'
-import './App.css'
 import GameState from './components/GameState'
+import './App.css'
 
 firebase.initializeApp({
   apiKey: 'AIzaSyANcUCFHaueADM2ak-RyjjZ_ZfuxeSxnnA',

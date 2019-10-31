@@ -6,9 +6,10 @@ import BasicLayout from '../../../ui/BasicLayout'
 import Button from '../../../ui/Button'
 import './styles.css'
 
-const PLAYING_PLACEHOLDER = -1
+export const PLAYING_PLACEHOLDER = -999
 const PASS_HEART_TRUMP_POINTS = 2
 const PASS_POINTS = 1
+const PLAYING_THRESHOLD = 5
 
 const RoundOverview = () => {
   const { game, gameInfo, players, currentPlayer, currentRound } = useGame()
@@ -16,13 +17,16 @@ const RoundOverview = () => {
   const currentRoundPlayer = players.find(
     p => p.id === currentRoundData.player,
   )!
+  const getCurrentUserPoints = (): number => {
+    return currentPlayer.points[currentPlayer.points.length - 1]
+  }
 
   const onDecide = (decision: boolean) => {
     const newPoints = decision
       ? PLAYING_PLACEHOLDER
       : (() => {
-          const currentPoints =
-            currentPlayer.points[currentPlayer.points.length - 1]
+          const currentPoints = getCurrentUserPoints()
+
           const delta =
             game.rounds[game.rounds.length - 1].trump === Suit.Hearts
               ? PASS_HEART_TRUMP_POINTS
@@ -65,7 +69,10 @@ const RoundOverview = () => {
         <Button onClick={() => onDecide(true)}>Bin dabei</Button>
         <Button
           onClick={() => onDecide(false)}
-          disabled={currentRoundPlayer.id === gameInfo.userId}
+          disabled={
+            currentRoundPlayer.id === gameInfo.userId ||
+            getCurrentUserPoints() <= PLAYING_THRESHOLD
+          }
         >
           Ohne mich
         </Button>
@@ -75,5 +82,3 @@ const RoundOverview = () => {
 }
 
 export default RoundOverview
-
-// disable ohne mich button when: 5 points or less, you're the currentroundplayer

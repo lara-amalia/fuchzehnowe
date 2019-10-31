@@ -2,6 +2,7 @@ import firebase from 'firebase'
 import React, { useState } from 'react'
 import { Game, GameInfo, GameStep, Player } from '../../../../types'
 import BasicLayout from '../../../ui/BasicLayout'
+import { FUCHZEHN } from '../../../../util/constants'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
@@ -28,6 +29,7 @@ const InitNew: React.FC<Props> = ({ onCreation, onBack }) => {
       gamesCollection.doc(gameId).set({
         adminId,
         step: GameStep.Scoreboard,
+        rounds: [],
       } as Game),
       gamesCollection
         .doc(gameId)
@@ -35,7 +37,7 @@ const InitNew: React.FC<Props> = ({ onCreation, onBack }) => {
         .doc(adminId)
         .set({
           name: username,
-          points: [15],
+          points: [FUCHZEHN],
         } as Player),
     ])
 

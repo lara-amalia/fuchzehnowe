@@ -6,7 +6,7 @@ import BasicLayout from '../../../ui/BasicLayout'
 import Button from '../../../ui/Button'
 import SuitPicker from '../../../ui/SuitPicker'
 import TrickPicker from '../../../ui/TrickPicker'
-import './styles.css'
+import '../../../../styles/common/layout.css'
 
 const RoundSetup = () => {
   const { game, gameInfo, currentPlayer } = useGame()
@@ -36,15 +36,17 @@ const RoundSetup = () => {
       title={`Runde #${game.rounds.length + 1}`}
       userName={currentPlayer.name}
     >
-      <div className="RoundSetup">
+      <div>
         <h2>Trumpf wählen</h2>
         <SuitPicker value={suit} onChange={setSuit} />
         <h2>Stiche wählen</h2>
         <TrickPicker value={tricks} onChange={setTricks} />
       </div>
-      <Button onClick={startRound} disabled={!(suit && tricks)}>
-        Runde starten
-      </Button>
+      <div className="ViewActions">
+        <Button onClick={startRound} disabled={!(suit && tricks)}>
+          Runde starten
+        </Button>
+      </div>
     </BasicLayout>
   )
 }

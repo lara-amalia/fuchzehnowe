@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { Game, GameInfo, GameStep, Id, Player } from '../../../types'
 import { unwrapDocument, unwrapQuery } from '../../../util/data'
 import { GameContext } from '../../../util/useGame'
+import BasicLayout from '../../ui/BasicLayout'
+import GamePlaying from './GamePlaying'
 import RoundSetup from './RoundSetup'
 import Scoreboard from './Scoreboard'
-import GamePlaying from './GamePlaying'
 
 interface Props {
   gameInfo: GameInfo
@@ -14,6 +15,8 @@ interface Props {
 const GameView: React.FC<Props> = ({ gameInfo }) => {
   const [game, setGame] = useState<Game & Id>()
   const [players, setPlayers] = useState<(Player & Id)[]>([])
+
+  const currentPlayer = players.find(p => p.id === gameInfo.userId)
 
   useEffect(() => {
     const gameDoc = firebase
@@ -29,10 +32,12 @@ const GameView: React.FC<Props> = ({ gameInfo }) => {
     return () => unsubscribeArr.forEach(u => u())
   }, [gameInfo.gameId])
 
-  const currentPlayer = players.find(p => p.id === gameInfo.userId)
-
   if (!game || !currentPlayer) {
-    return <p>loading game (id: {gameInfo.gameId})...</p>
+    return (
+      <BasicLayout title="Loading...">
+        Loading game (ID: {gameInfo.gameId})...
+      </BasicLayout>
+    )
   }
 
   return (
@@ -46,7 +51,13 @@ const GameView: React.FC<Props> = ({ gameInfo }) => {
           case GameStep.Playing:
             return <GamePlaying />
           default:
-            return <p>GameView: {gameInfo.gameId}</p>
+            return (
+              <BasicLayout title="Unknown game state">
+                Game ID: {gameInfo.gameId}
+                <br />
+                Player ID: {gameInfo.userId}
+              </BasicLayout>
+            )
         }
       })()}
     </GameContext.Provider>
