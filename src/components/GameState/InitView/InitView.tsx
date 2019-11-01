@@ -26,7 +26,9 @@ const InitView: React.FC<Props> = ({ onGameInfoSelect }) => {
 
   switch (initState) {
     case InitState.Select:
-      return <InitSelect onSelection={setInitState} />
+      return (
+        <InitSelect onSelection={setInitState} onResume={onGameInfoSelect} />
+      )
     case InitState.New:
       return (
         <InitNew
