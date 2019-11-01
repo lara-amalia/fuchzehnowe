@@ -26,6 +26,13 @@ const InitSelect: React.FC<Props> = ({ onSelection }) => {
         >
           Spielregeln
         </Button>
+        <br />
+        <Button
+          onClick={() => onSelection(InitState.About)}
+          variant="secondary"
+        >
+          Infos
+        </Button>
       </p>
     </div>
   )

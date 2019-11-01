@@ -33,7 +33,7 @@ const GamePlaying = () => {
           step: GameStep.Scoreboard,
         } as Partial<Game>)
     }
-  }, [game, players, currentPlayer])
+  }, [game, players, currentPlayer, currentRound])
 
   if (currentRound === currentPlayer.points.length) {
     return <RoundOverview />

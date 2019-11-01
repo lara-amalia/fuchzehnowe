@@ -11,3 +11,8 @@
 .BasicLayout-title {
   text-align: center;
 }
+
+.BasicLayout--left {
+  text-align: left;
+  max-width: 600px;
+}
