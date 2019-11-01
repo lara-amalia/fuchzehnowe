@@ -26,7 +26,7 @@ const Scoreboard = () => {
       <div className="Scoreboard">
         <div className="Scoreboard-title">
           <h1>Punktestand</h1>
-          <p>Scoreboard of Game: {gameInfo.gameId}</p>
+          <p>Scoreboard of Game: {game.shortcut}</p>
         </div>
         <div className="Scoreboard-playerlist">
           {players

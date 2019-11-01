@@ -13,7 +13,7 @@ interface Props {
  * Join an existing game by entering the game ID and a user name.
  */
 const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
-  const gameIdInput = useRef<HTMLInputElement>(null)
+  const gameShortcutInput = useRef<HTMLInputElement>(null)
   const [username, setUsername] = useState('')
 
   const canJoin = () => {
@@ -30,11 +30,20 @@ const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
     e.preventDefault()
 
     const gamesCollection = firebase.firestore().collection('games')
-    const gameId = gameIdInput.current!.value
+    const gameShortcut = gameShortcutInput.current!.value
     const userId = gamesCollection.doc().id
 
+    const existingGame = (await gamesCollection
+      .where('shortcut', '==', gameShortcut)
+      .get()).docs[0]
+
+    if (!existingGame) {
+      window.alert("gibt's ned")
+      return
+    }
+
     gamesCollection
-      .doc(gameId)
+      .doc(existingGame.id)
       .collection('players')
       .doc(userId)
       .set({
@@ -42,7 +51,7 @@ const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
         points: [FUCHZEHN],
       })
 
-    onCreation({ gameId, userId })
+    onCreation({ gameId: existingGame.id, userId })
   }
   return (
     <BasicLayout title="Mitspielen" onBack={onBack}>
@@ -51,8 +60,8 @@ const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
         <input
           type="text"
           name="gameid"
-          placeholder="game id"
-          ref={gameIdInput}
+          placeholder="game shortcut"
+          ref={gameShortcutInput}
         />
         <br />
         <div className="input-wrapper">

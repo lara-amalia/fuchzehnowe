@@ -1,7 +1,6 @@
-export enum GameStep {
-  Scoreboard = 'scoreboard',
-  Setup = 'setup',
-  Playing = 'playing',
+export interface GameInfo {
+  gameId: string
+  userId: string
 }
 
 export interface Id {
@@ -12,6 +11,7 @@ export interface Game {
   adminId: string
   rounds: Round[]
   step: GameStep
+  shortcut: string | null
 }
 
 export interface Player {
@@ -25,9 +25,10 @@ export interface Round {
   tricks: number
 }
 
-export interface GameInfo {
-  gameId: string
-  userId: string
+export enum GameStep {
+  Scoreboard = 'scoreboard',
+  Setup = 'setup',
+  Playing = 'playing',
 }
 
 export enum Suit {

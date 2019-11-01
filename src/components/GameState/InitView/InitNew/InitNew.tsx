@@ -1,12 +1,41 @@
 import firebase from 'firebase'
 import React, { useState } from 'react'
-import { Game, GameInfo, GameStep, Player } from '../../../../types'
+import { Game, GameInfo, GameStep, Player, Suit } from '../../../../types'
 import BasicLayout from '../../../ui/BasicLayout'
 import { FUCHZEHN } from '../../../../util/constants'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
   onBack: () => void
+}
+
+const getFourRandomSuits = () => {
+  const SUITS = Object.values(Suit)
+
+  const getRandomNumber = () => {
+    return Math.floor(Math.random() * 4)
+  }
+
+  const getRandomSuit = () => {
+    return SUITS[getRandomNumber()]
+  }
+
+  const arr = []
+  for (let i = 0; i < 4; i++) {
+    arr.push(getRandomSuit())
+  }
+  return arr.join('-')
+}
+
+const getCollisonSafeShortcut = async (): Promise<string> => {
+  const candidate = getFourRandomSuits()
+  const exists = !!(await firebase
+    .firestore()
+    .collection('games')
+    .where('shortcut', '==', candidate)
+    .get()).docs.length
+
+  return exists ? await getCollisonSafeShortcut() : candidate
 }
 
 /**
@@ -30,6 +59,7 @@ const InitNew: React.FC<Props> = ({ onCreation, onBack }) => {
         adminId,
         step: GameStep.Scoreboard,
         rounds: [],
+        shortcut: await getCollisonSafeShortcut(),
       } as Game),
       gamesCollection
         .doc(gameId)
@@ -46,11 +76,6 @@ const InitNew: React.FC<Props> = ({ onCreation, onBack }) => {
 
   return (
     <BasicLayout title="Neues Spiel" onBack={onBack}>
-      {/* <p>
-        Gib deinen Namen ein,
-        <br />
-        um ein neues Spiel zu starten.
-      </p> */}
       <form onSubmit={createGame}>
         <div className="input-wrapper">
           <input
