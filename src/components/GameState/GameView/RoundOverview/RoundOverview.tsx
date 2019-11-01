@@ -76,6 +76,12 @@ const RoundOverview = () => {
         >
           Ohne mich
         </Button>
+        {getCurrentUserPoints() <= PLAYING_THRESHOLD && (
+          <p className="input-hint">
+            Du hast nur noch {getCurrentUserPoints()} Punkte, und kannst nicht
+            mehr aussteigen...
+          </p>
+        )}
       </div>
     </BasicLayout>
   )

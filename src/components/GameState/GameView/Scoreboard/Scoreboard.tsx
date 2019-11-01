@@ -8,7 +8,7 @@ import Header from '../../../ui/Header'
 import './styles.css'
 
 const Scoreboard = () => {
-  const { game, gameInfo, players, currentPlayer } = useGame()
+  const { game, gameInfo, players, currentPlayer, currentRound } = useGame()
 
   const startNextRound = () => {
     firebase
@@ -52,7 +52,14 @@ const Scoreboard = () => {
         </div>
         {game.adminId === gameInfo.userId && game.step === GameStep.Scoreboard && (
           <div className="Scoreboard-actions">
-            <Button onClick={startNextRound}>Runde starten</Button>
+            <Button onClick={startNextRound} disabled={players.length < 2}>
+              Runde {currentRound + 1} starten
+            </Button>
+            {players.length < 2 && (
+              <p className="input-hint">
+                Alleine spielen ist doch langweilig...
+              </p>
+            )}
           </div>
         )}
       </div>
