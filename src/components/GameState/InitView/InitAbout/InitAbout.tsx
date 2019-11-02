@@ -39,7 +39,7 @@ const InitAbout: React.FC<Props> = ({ onBack }) => {
         </a>{' '}
         oder{' '}
         <a
-          href="https://github.com/lara-amalia"
+          href="https://github.com/lara-amalia/fuchzehnowe"
           target="_blank"
           rel="noopener noreferrer"
         >
