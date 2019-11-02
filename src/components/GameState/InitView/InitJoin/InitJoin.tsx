@@ -1,8 +1,10 @@
 import firebase from 'firebase'
-import React, { useRef, useState } from 'react'
-import { GameInfo } from '../../../../types'
-import BasicLayout from '../../../ui/BasicLayout'
+import React, { useState } from 'react'
+import { GameInfo, Suit } from '../../../../types'
 import { FUCHZEHN } from '../../../../util/constants'
+import BasicLayout from '../../../ui/BasicLayout'
+import GameShortcutSelect from '../../../ui/GameShortcutSelect'
+import { gameShortcutToString } from '../../../ui/GameShortcutSelect/'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
@@ -13,13 +15,13 @@ interface Props {
  * Join an existing game by entering the game ID and a user name.
  */
 const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
-  const gameShortcutInput = useRef<HTMLInputElement>(null)
   const [username, setUsername] = useState('')
+  const [gameShortcut, setGameShortcut] = useState<Suit[]>([])
 
   const canJoin = () => {
     const usernameValid = /^[a-z]{3,}$/i.test(username)
-    const gameidValid = true // TODO: check game ID
-    return usernameValid && gameidValid
+    const gameShortcutValid = gameShortcut.length === 4
+    return usernameValid && gameShortcutValid
   }
 
   /**
@@ -30,15 +32,15 @@ const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
     e.preventDefault()
 
     const gamesCollection = firebase.firestore().collection('games')
-    const gameShortcut = gameShortcutInput.current!.value
+    const gameShortcutString = gameShortcutToString(gameShortcut)
     const userId = gamesCollection.doc().id
 
     const existingGame = (await gamesCollection
-      .where('shortcut', '==', gameShortcut)
+      .where('shortcut', '==', gameShortcutString)
       .get()).docs[0]
 
     if (!existingGame) {
-      window.alert("gibt's ned")
+      window.alert("Der Schlüssel zum Spiel ist falsch. Probier's nochmal!")
       return
     }
 
@@ -55,15 +57,8 @@ const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
   }
   return (
     <BasicLayout title="Mitspielen" onBack={onBack}>
-      <p>Gib die Spiel-ID und deinen Namen ein!</p>
+      <GameShortcutSelect onChange={setGameShortcut} value={gameShortcut} />
       <form onSubmit={joinGame}>
-        <input
-          type="text"
-          name="gameid"
-          placeholder="game shortcut"
-          ref={gameShortcutInput}
-        />
-        <br />
         <div className="input-wrapper">
           <input
             type="text"
@@ -72,7 +67,7 @@ const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
             value={username}
             onChange={e => setUsername(e.currentTarget.value)}
           />
-          <p className="input-hint">
+          <p className="hint-text">
             Der Name muss mind. 3 Zeichen lang sein und darf nur Buchstaben
             beinhalten.
           </p>

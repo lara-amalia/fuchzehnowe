@@ -1,7 +1,16 @@
 .SuitPicker {
+  --picker-item-size: 160px;
   display: grid;
-  grid-template-columns: 160px 160px;
-  grid-template-rows: 160px 160px;
+  grid-template-columns: repeat(2, var(--picker-item-size));
+  grid-template-rows: repeat(2, var(--picker-item-size));
   grid-gap: 1rem;
   justify-content: center;
+}
+
+.SuitPicker--small {
+  --picker-item-size: 100px;
+}
+
+.SuitPicker--small .SuitPicker-item {
+  padding: 1rem;
 }

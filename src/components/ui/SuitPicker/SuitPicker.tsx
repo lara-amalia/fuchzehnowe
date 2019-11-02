@@ -24,13 +24,14 @@ export function getSuitIcon(suit: string, color: string, size: number) {
 }
 
 interface Props {
-  value?: Suit
   onChange: (suit: Suit) => void
+  value?: Suit
+  small?: boolean
 }
 
-const SuitPicker: React.FC<Props> = ({ value, onChange }) => {
+const SuitPicker: React.FC<Props> = ({ value, onChange, small }) => {
   return (
-    <div className="SuitPicker">
+    <div className={clsx('SuitPicker', small && 'SuitPicker--small')}>
       {Object.values(Suit).map(val => (
         <button
           key={val}
@@ -41,7 +42,7 @@ const SuitPicker: React.FC<Props> = ({ value, onChange }) => {
           )}
           onClick={() => onChange(val)}
         >
-          {getSuitIcon(val, '#4e565c', 85)}
+          {getSuitIcon(val, '#4e565c', small ? 60 : 85)}
         </button>
       ))}
     </div>

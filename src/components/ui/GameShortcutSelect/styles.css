@@ -1,0 +1,24 @@
+.SuitSelection {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 2rem;
+}
+
+.SuitSelection-item {
+  border: 2px solid #79858d;
+  border-radius: 16px;
+  width: 54px;
+  height: 54px;
+}
+
+.SuitSelection-item--empty {
+  border-style: dashed;
+}
+
+.SuitSelection-item--firstempty {
+  border-color: #fff;
+}
+
+.SuitSelection-item + .SuitSelection-item {
+  margin-left: 8px;
+}

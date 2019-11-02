@@ -1,5 +1,9 @@
 import React from 'react'
 import BasicLayout from '../../../ui/BasicLayout'
+import HeartsIcon from '../../../ui/HeartsIcon'
+import BellsIcon from '../../../ui/BellsIcon'
+import AcornsIcon from '../../../ui/AcornsIcon'
+import LeavesIcon from '../../../ui/LeavesIcon'
 
 interface Props {
   onBack: () => void
@@ -40,6 +44,7 @@ const InitRules: React.FC<Props> = ({ onBack }) => {
         bekommt man 5 Strafpunkte dazu. Ist in einer Runde Herz Trumpf, zählen
         sämtliche Punkte doppelt.
       </p>
+      <HeartsIcon size={70} color="#23272b" />
       <h2>Eine Runde – Vorbereitung</h2>
       <p>
         Der Geber gibt jedem Spieler 5 Karten. Der Spieler links vom Geber
@@ -56,6 +61,7 @@ const InitRules: React.FC<Props> = ({ onBack }) => {
         Punkte haben, können nach der Reihe Karten austauschen (es beginnt der
         Spieler, der den Trumpf bestimmt hat).
       </p>
+      <BellsIcon size={70} color="#23272b" />
       <h2>Eine Runde – Stechen</h2>
       <p>
         Der Spieler, der den Trumpf für die Runde bestimmt hat, beginnt.
@@ -66,6 +72,7 @@ const InitRules: React.FC<Props> = ({ onBack }) => {
         Der "Weli" (Schellen VI) gilt immer als die zweithöchste Karte (Trumpf)
         im Spiel.
       </p>
+      <AcornsIcon size={70} color="#23272b" />
       <h2>Punktevergabe</h2>
       <p>
         Am Ende einer Runde sollte zumindest jeder Spieler mind. einen Stich
@@ -75,6 +82,7 @@ const InitRules: React.FC<Props> = ({ onBack }) => {
         Trumpf, zählen alle Plus- und Minuspunkte doppelt. Das Spiel endet,
         sobald der erste Spieler -1 Punkt erreicht hat.
       </p>
+      <LeavesIcon size={70} color="#23272b" />
       <h2>Und warum diese App?</h2>
       <p>
         Die "15 owe" App erleichtert das Punkte-Zählen während einem Spiel.

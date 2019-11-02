@@ -1,34 +1,29 @@
 import firebase from 'firebase'
+import random from 'lodash/random'
+import range from 'lodash/range'
 import React, { useState } from 'react'
 import { Game, GameInfo, GameStep, Player, Suit } from '../../../../types'
-import BasicLayout from '../../../ui/BasicLayout'
 import { FUCHZEHN } from '../../../../util/constants'
+import BasicLayout from '../../../ui/BasicLayout'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
   onBack: () => void
 }
 
-const getFourRandomSuits = () => {
-  const SUITS = Object.values(Suit)
-
-  const getRandomNumber = () => {
-    return Math.floor(Math.random() * 4)
-  }
-
-  const getRandomSuit = () => {
-    return SUITS[getRandomNumber()]
-  }
-
-  const arr = []
-  for (let i = 0; i < 4; i++) {
-    arr.push(getRandomSuit())
-  }
-  return arr.join('-')
-}
+export const SHORTCUT_LENGTH = 4
+export const SHORTCUT_SEPARATOR = '-'
 
 const getCollisonSafeShortcut = async (): Promise<string> => {
-  const candidate = getFourRandomSuits()
+  const getGameShortcut = () => {
+    const SUITS = Object.values(Suit)
+
+    return range(SHORTCUT_LENGTH)
+      .map(() => SUITS[random(0, SUITS.length - 1)])
+      .join(SHORTCUT_SEPARATOR)
+  }
+
+  const candidate = getGameShortcut()
   const exists = !!(await firebase
     .firestore()
     .collection('games')
@@ -85,7 +80,7 @@ const InitNew: React.FC<Props> = ({ onCreation, onBack }) => {
             onChange={e => setUsername(e.currentTarget.value)}
             placeholder="Dein Name"
           />
-          <p className="input-hint">
+          <p className="hint-text">
             Der Name muss mind. 3 Zeichen lang sein und darf nur Buchstaben
             beinhalten.
           </p>

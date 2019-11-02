@@ -4,6 +4,7 @@ import { Player, Suit } from '../../../../types'
 import useGame from '../../../../util/useGame'
 import BasicLayout from '../../../ui/BasicLayout'
 import Button from '../../../ui/Button'
+import { getSuitIcon } from '../../../ui/SuitPicker'
 import './styles.css'
 
 export const PLAYING_PLACEHOLDER = -999
@@ -60,7 +61,7 @@ const RoundOverview = () => {
         <br />
         <br />
         <span className="RoundOverview-highlight">
-          {currentRoundData.trump}
+          {getSuitIcon(currentRoundData.trump, '#23272b', 80)}
         </span>
         <br />
         ist Trumpf
@@ -77,7 +78,7 @@ const RoundOverview = () => {
           Ohne mich
         </Button>
         {getCurrentUserPoints() <= PLAYING_THRESHOLD && (
-          <p className="input-hint">
+          <p className="hint-text">
             Du hast nur noch {getCurrentUserPoints()} Punkte, und kannst nicht
             mehr aussteigen...
           </p>

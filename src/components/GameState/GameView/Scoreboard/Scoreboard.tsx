@@ -22,6 +22,7 @@ const Scoreboard = () => {
       .doc(gameInfo.gameId)
       .update({
         step: GameStep.Setup,
+        shortcut: null,
       } as Partial<Game>)
   }
 
@@ -32,11 +33,10 @@ const Scoreboard = () => {
         <div className="Scoreboard-title">
           <h1>Punktestand</h1>
           {game.shortcut && (
-            <p>
+            <div>
               {transformShortcut(game.shortcut)}
-              <br />
-              {game.shortcut}
-            </p>
+              <p className="hint-text">Der Schlüssel zum Spiel ;-)</p>
+            </div>
           )}
         </div>
         <div className="Scoreboard-playerlist">
@@ -67,7 +67,7 @@ const Scoreboard = () => {
               Runde {currentRound + 1} starten
             </Button>
             {players.length < 2 && (
-              <p className="input-hint">
+              <p className="hint-text">
                 Alleine spielen ist doch langweilig...
               </p>
             )}

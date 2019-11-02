@@ -35,7 +35,12 @@ const GameView: React.FC<Props> = ({ gameInfo }) => {
   if (!game || !currentPlayer) {
     return (
       <BasicLayout title="Loading...">
-        Loading game (ID: {gameInfo.gameId})...
+        <p>Spiel wird geladen.</p>
+        <p className="hint-text">
+          Game ID: {gameInfo.gameId}
+          <br />
+          Player ID: {gameInfo.userId}
+        </p>
       </BasicLayout>
     )
   }
