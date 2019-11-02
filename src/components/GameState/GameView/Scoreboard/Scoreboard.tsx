@@ -5,7 +5,12 @@ import { Game, GameStep } from '../../../../types'
 import useGame from '../../../../util/useGame'
 import Button from '../../../ui/Button'
 import Header from '../../../ui/Header'
+import { getSuitIcon } from '../../../ui/SuitPicker'
 import './styles.css'
+
+const transformShortcut = (shortcut: string) => {
+  return shortcut.split('-').map(s => getSuitIcon(s, '#23272b', 60))
+}
 
 const Scoreboard = () => {
   const { game, gameInfo, players, currentPlayer, currentRound } = useGame()
@@ -26,7 +31,13 @@ const Scoreboard = () => {
       <div className="Scoreboard">
         <div className="Scoreboard-title">
           <h1>Punktestand</h1>
-          <p>Scoreboard of Game: {game.shortcut}</p>
+          {game.shortcut && (
+            <p>
+              {transformShortcut(game.shortcut)}
+              <br />
+              {game.shortcut}
+            </p>
+          )}
         </div>
         <div className="Scoreboard-playerlist">
           {players
