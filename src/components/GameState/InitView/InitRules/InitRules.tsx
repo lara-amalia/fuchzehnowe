@@ -4,6 +4,7 @@ import HeartsIcon from '../../../ui/HeartsIcon'
 import BellsIcon from '../../../ui/BellsIcon'
 import AcornsIcon from '../../../ui/AcornsIcon'
 import LeavesIcon from '../../../ui/LeavesIcon'
+import BackButton from '../../../ui/BackButton'
 
 interface Props {
   onBack: () => void
@@ -11,7 +12,11 @@ interface Props {
 
 const InitRules: React.FC<Props> = ({ onBack }) => {
   return (
-    <BasicLayout title="Spielregeln" onBack={onBack} alignment="left">
+    <BasicLayout
+      title="Spielregeln"
+      leftHeaderItem={<BackButton onClick={onBack} />}
+      alignment="left"
+    >
       <p>
         "Fuchzehn owe" ist ein Kartenspiel, das mit{' '}
         <a

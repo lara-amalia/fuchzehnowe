@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 interface Props {
   title: string
-  onBack?: () => void
+  leftHeaderItem?: React.ReactNode
   userName?: string
   alignment?: 'center' | 'left'
 }
@@ -13,13 +13,13 @@ interface Props {
 const BasicLayout: React.FC<Props> = ({
   children,
   title,
-  onBack,
+  leftHeaderItem,
   userName,
   alignment,
 }) => {
   return (
     <>
-      <Header onBack={onBack} userName={userName} />
+      <Header leftItem={leftHeaderItem} userName={userName} />
       <div className={clsx('BasicLayout', `BasicLayout--${alignment}`)}>
         <h1 className="BasicLayout-title">{title}</h1>
         {children}

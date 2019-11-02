@@ -7,6 +7,7 @@ import Button from '../../../ui/Button'
 import Header from '../../../ui/Header'
 import { getSuitIcon } from '../../../ui/SuitPicker'
 import './styles.css'
+import QuitButton from '../../../ui/QuitButton'
 
 const transformShortcut = (shortcut: string) => {
   return shortcut.split('-').map(s => getSuitIcon(s, '#23272b', 60))
@@ -26,9 +27,16 @@ const Scoreboard = () => {
       } as Partial<Game>)
   }
 
+  const quitGame = () => {
+    console.log('quit!')
+  }
+
   return (
     <>
-      <Header userName={currentPlayer.name} />
+      <Header
+        userName={currentPlayer.name}
+        leftItem={<QuitButton onClick={quitGame} />}
+      />
       <div className="Scoreboard">
         <div className="Scoreboard-title">
           <h1>Punktestand</h1>

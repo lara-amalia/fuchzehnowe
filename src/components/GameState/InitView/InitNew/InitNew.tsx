@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { Game, GameInfo, GameStep, Player, Suit } from '../../../../types'
 import { FUCHZEHN } from '../../../../util/constants'
 import BasicLayout from '../../../ui/BasicLayout'
+import BackButton from '../../../ui/BackButton'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
@@ -70,7 +71,10 @@ const InitNew: React.FC<Props> = ({ onCreation, onBack }) => {
   }
 
   return (
-    <BasicLayout title="Neues Spiel" onBack={onBack}>
+    <BasicLayout
+      title="Neues Spiel"
+      leftHeaderItem={<BackButton onClick={onBack} />}
+    >
       <form onSubmit={createGame}>
         <div className="input-wrapper">
           <input

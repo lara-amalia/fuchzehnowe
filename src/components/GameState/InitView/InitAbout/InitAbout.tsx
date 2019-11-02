@@ -4,6 +4,7 @@ import HeartsIcon from '../../../ui/HeartsIcon'
 import BellsIcon from '../../../ui/BellsIcon'
 import AcornsIcon from '../../../ui/AcornsIcon'
 import LeavesIcon from '../../../ui/LeavesIcon'
+import BackButton from '../../../ui/BackButton'
 
 interface Props {
   onBack: () => void
@@ -11,7 +12,11 @@ interface Props {
 
 const InitAbout: React.FC<Props> = ({ onBack }) => {
   return (
-    <BasicLayout title="Infos" onBack={onBack} alignment="left">
+    <BasicLayout
+      title="Infos"
+      leftHeaderItem={<BackButton onClick={onBack} />}
+      alignment="left"
+    >
       <p>
         Klar kann man dieses Kartenspiel auch ohne eine App spielen. Ein Zettel
         und ein Stift reichen, um die Punkte der Spieler zu dokumentieren. Aber

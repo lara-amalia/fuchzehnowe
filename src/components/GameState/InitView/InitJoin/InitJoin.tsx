@@ -5,6 +5,7 @@ import { FUCHZEHN } from '../../../../util/constants'
 import BasicLayout from '../../../ui/BasicLayout'
 import GameShortcutSelect from '../../../ui/GameShortcutSelect'
 import { gameShortcutToString } from '../../../ui/GameShortcutSelect/'
+import BackButton from '../../../ui/BackButton'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
@@ -56,7 +57,10 @@ const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
     onCreation({ gameId: existingGame.id, userId })
   }
   return (
-    <BasicLayout title="Mitspielen" onBack={onBack}>
+    <BasicLayout
+      title="Mitspielen"
+      leftHeaderItem={<BackButton onClick={onBack} />}
+    >
       <GameShortcutSelect onChange={setGameShortcut} value={gameShortcut} />
       <form onSubmit={joinGame}>
         <div className="input-wrapper">
