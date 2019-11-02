@@ -7,12 +7,14 @@ import BasicLayout from '../../ui/BasicLayout'
 import GamePlaying from './GamePlaying'
 import RoundSetup from './RoundSetup'
 import Scoreboard from './Scoreboard'
+import { LOCAL_STORAGE_KEY } from '../GameState'
 
 interface Props {
   gameInfo: GameInfo
+  setGameInfo: (gameInfo?: GameInfo) => void
 }
 
-const GameView: React.FC<Props> = ({ gameInfo }) => {
+const GameView: React.FC<Props> = ({ gameInfo, setGameInfo }) => {
   const [game, setGame] = useState<Game & Id>()
   const [players, setPlayers] = useState<(Player & Id)[]>([])
 
@@ -25,11 +27,30 @@ const GameView: React.FC<Props> = ({ gameInfo }) => {
       .doc(gameInfo.gameId)
 
     const unsubscribeArr = [
-      gameDoc.onSnapshot(s => setGame(unwrapDocument(s))),
-      gameDoc.collection('players').onSnapshot(s => setPlayers(unwrapQuery(s))),
+      gameDoc.onSnapshot(s => {
+        const gameData = unwrapDocument<Game>(s)
+
+        if (!gameData) {
+          window.localStorage.removeItem(LOCAL_STORAGE_KEY)
+          setGameInfo(undefined)
+        }
+
+        setGame(gameData)
+      }),
+      gameDoc.collection('players').onSnapshot(s => {
+        const playerData = unwrapQuery<Player>(s)
+
+        if (!playerData.find(p => p.id === gameInfo.userId)) {
+          window.localStorage.removeItem(LOCAL_STORAGE_KEY)
+          setGameInfo(undefined)
+        }
+
+        setPlayers(playerData)
+      }),
     ]
 
     return () => unsubscribeArr.forEach(u => u())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameInfo.gameId])
 
   if (!game || !currentPlayer) {

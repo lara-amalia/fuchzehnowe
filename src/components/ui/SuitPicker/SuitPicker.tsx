@@ -19,7 +19,7 @@ export function getSuitIcon(suit: string, color: string, size: number) {
     case 'leaves':
       return <LeavesIcon color={color} size={size} />
     default:
-      return ''
+      return null
   }
 }
 

@@ -33,7 +33,8 @@ const GamePlaying = () => {
           step: GameStep.Scoreboard,
         } as Partial<Game>)
     }
-  }, [game, players, currentPlayer, currentRound])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [game, players])
 
   if (currentRound === currentPlayer.points.length) {
     return <RoundOverview />

@@ -25,11 +25,10 @@ const RoundDone = () => {
 
     let delta = heartWasTrump ? -2 * tricks! : -tricks!
     // If player could not make one trick or could not reach promised amount of tricks
-    if (
-      (!userIsCurrentRoundPlayer && tricks === 0) ||
-      (userIsCurrentRoundPlayer && tricks! < currentRoundData.tricks)
-    ) {
+    if (!userIsCurrentRoundPlayer && tricks === 0) {
       delta = heartWasTrump ? 10 : 5
+    } else if (userIsCurrentRoundPlayer && tricks! < currentRoundData.tricks) {
+      delta = heartWasTrump ? 20 : 10
     }
 
     // The last array entry is the played-placeholder,

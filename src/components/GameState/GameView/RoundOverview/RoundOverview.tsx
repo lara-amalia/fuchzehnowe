@@ -22,6 +22,24 @@ const RoundOverview = () => {
     return currentPlayer.points[currentPlayer.points.length - 1]
   }
 
+  /**
+   * Returns the number of players taking part in the current round.
+   * They have either not yet decided (points of current round are undefined)
+   * or they already decided that they are playing (points of current round are PLAYING_PLACEHOLDER)
+   */
+  const playersInRound = () => {
+    return players.filter(
+      p =>
+        !p.points[currentRound] ||
+        p.points[currentRound] === PLAYING_PLACEHOLDER,
+    ).length
+  }
+
+  /**
+   * Updates the points array of the current user depending
+   * on whether they are playing or not.
+   * @param decision – true = playing, false = passing
+   */
   const onDecide = (decision: boolean) => {
     const newPoints = decision
       ? PLAYING_PLACEHOLDER
@@ -72,7 +90,8 @@ const RoundOverview = () => {
           onClick={() => onDecide(false)}
           disabled={
             currentRoundPlayer.id === gameInfo.userId ||
-            getCurrentUserPoints() <= PLAYING_THRESHOLD
+            getCurrentUserPoints() <= PLAYING_THRESHOLD ||
+            playersInRound() <= 2
           }
         >
           Ohne mich
@@ -82,6 +101,9 @@ const RoundOverview = () => {
             Du hast nur noch {getCurrentUserPoints()} Punkte, und kannst nicht
             mehr aussteigen...
           </p>
+        )}
+        {playersInRound() <= 2 && (
+          <p className="hint-text">Mindestens 2 Spieler müssen spielen...</p>
         )}
       </div>
     </BasicLayout>

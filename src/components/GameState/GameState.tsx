@@ -18,7 +18,7 @@ const GameState: React.FC = () => {
     return <InitView onGameInfoSelect={initGameInfo} />
   }
 
-  return <GameView gameInfo={gameInfo} />
+  return <GameView gameInfo={gameInfo} setGameInfo={setGameInfo} />
 }
 
 export default GameState

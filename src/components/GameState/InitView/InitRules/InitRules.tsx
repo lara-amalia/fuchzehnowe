@@ -18,7 +18,7 @@ const InitRules: React.FC<Props> = ({ onBack }) => {
       alignment="left"
     >
       <p>
-        "Fuchzehn owe" ist ein Kartenspiel, das mit{' '}
+        "Fuchzehn owe" ("fünfzehn runter") ist ein Kartenspiel, das mit{' '}
         <a
           href="https://de.wikipedia.org/wiki/Spielkarte#Ungarisches/Mitteleuropäisches/Doppeldeutsches_Blatt"
           target="_blank"
@@ -37,19 +37,20 @@ const InitRules: React.FC<Props> = ({ onBack }) => {
         </a>
         .
       </p>
+      <HeartsIcon size={70} color="#23272b" />
       <h2>Ziel des Spiels</h2>
       <p>
         Am Anfang des Spiels hat jeder Spieler 15 Punkte, die er so schnell wie
-        möglich "runterspielen" muss (=> 15 owe). Sobald der erste Spieler bei
-        -1 Punkt angelangt ist, ist das Spiel vorbei. (Optional können die
-        verbleibenden Spieler natürlich weiterspielen.)
+        möglich "runterspielen" muss. Sobald der erste Spieler bei -1 Punkt
+        angelangt ist, ist das Spiel vorbei. (Optional können die verbleibenden
+        Spieler natürlich weiterspielen.)
       </p>
       <p>
         Jeder Stich reduziert die Punkteanzahl um 1, erhält man keinen Stich,
         bekommt man 5 Strafpunkte dazu. Ist in einer Runde Herz Trumpf, zählen
         sämtliche Punkte doppelt.
       </p>
-      <HeartsIcon size={70} color="#23272b" />
+      <BellsIcon size={70} color="#23272b" />
       <h2>Eine Runde – Vorbereitung</h2>
       <p>
         Der Geber gibt jedem Spieler 5 Karten. Der Spieler links vom Geber
@@ -66,7 +67,7 @@ const InitRules: React.FC<Props> = ({ onBack }) => {
         Punkte haben, können nach der Reihe Karten austauschen (es beginnt der
         Spieler, der den Trumpf bestimmt hat).
       </p>
-      <BellsIcon size={70} color="#23272b" />
+      <AcornsIcon size={70} color="#23272b" />
       <h2>Eine Runde – Stechen</h2>
       <p>
         Der Spieler, der den Trumpf für die Runde bestimmt hat, beginnt.
@@ -77,22 +78,16 @@ const InitRules: React.FC<Props> = ({ onBack }) => {
         Der "Weli" (Schellen VI) gilt immer als die zweithöchste Karte (Trumpf)
         im Spiel.
       </p>
-      <AcornsIcon size={70} color="#23272b" />
+      <LeavesIcon size={70} color="#23272b" />
       <h2>Punktevergabe</h2>
       <p>
         Am Ende einer Runde sollte zumindest jeder Spieler mind. einen Stich
         gemacht haben. Wer keinen Stich hat, "fällt" und bekommt 5 Punkte dazu.
         Jeder Stich zieht je einen Punkt ab. Hat der höchstbietende Spieler
-        seine Anzahl an Stichen nicht erreicht, "fällt" auch dieser. Ist Herz
-        Trumpf, zählen alle Plus- und Minuspunkte doppelt. Das Spiel endet,
-        sobald der erste Spieler -1 Punkt erreicht hat.
-      </p>
-      <LeavesIcon size={70} color="#23272b" />
-      <h2>Und warum diese App?</h2>
-      <p>
-        Die "15 owe" App erleichtert das Punkte-Zählen während einem Spiel.
-        Außerdem wird der Punkteverlauf der Spieler visualisiert und eventuell
-        kann man auch bald andere tolle Sachen damit machen... :)
+        seine Anzahl an Stichen nicht erreicht, "fällt" auch dieser, bekommt
+        aber +10 Punkte. Ist Herz Trumpf, zählen alle Plus- und Minuspunkte
+        doppelt. Das Spiel endet, sobald der erste Spieler -1 Punkt erreicht
+        hat.
       </p>
     </BasicLayout>
   )
