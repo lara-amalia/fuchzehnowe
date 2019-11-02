@@ -20,7 +20,7 @@ const InitRules: React.FC<Props> = ({ onBack }) => {
       <p>
         "Fuchzehn owe" ("fünfzehn runter") ist ein Kartenspiel, das mit{' '}
         <a
-          href="https://de.wikipedia.org/wiki/Spielkarte#Ungarisches/Mitteleuropäisches/Doppeldeutsches_Blatt"
+          href="https://de.wikipedia.org/wiki/Spielkarte#Ungarisches/Mitteleurop%C3%A4isches/Doppeldeutsches_Blatt"
           target="_blank"
           rel="noopener noreferrer"
         >

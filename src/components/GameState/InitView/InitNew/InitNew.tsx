@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import * as firebase from 'firebase/app'
 import random from 'lodash/random'
 import range from 'lodash/range'
 import React, { useState } from 'react'

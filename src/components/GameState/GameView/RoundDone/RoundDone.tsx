@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import * as firebase from 'firebase/app'
 import React, { useState } from 'react'
 import '../../../../styles/common/layout.css'
 import { Player, Suit } from '../../../../types'

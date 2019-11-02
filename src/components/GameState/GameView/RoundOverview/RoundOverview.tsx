@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import * as firebase from 'firebase/app'
 import React from 'react'
 import { Player, Suit } from '../../../../types'
 import useGame from '../../../../util/useGame'

@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import * as firebase from 'firebase/app'
 import React, { useEffect, useState } from 'react'
 import { Game, GameInfo, GameStep, Id, Player } from '../../../types'
 import { unwrapDocument, unwrapQuery } from '../../../util/data'

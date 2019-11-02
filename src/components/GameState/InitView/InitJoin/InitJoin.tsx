@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import * as firebase from 'firebase/app'
 import React, { useState } from 'react'
 import { GameInfo, Suit } from '../../../../types'
 import { FUCHZEHN } from '../../../../util/constants'

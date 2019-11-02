@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import * as firebase from 'firebase/app'
 import React, { useEffect } from 'react'
 import { Game, GameStep } from '../../../../types'
 import useGame from '../../../../util/useGame'
