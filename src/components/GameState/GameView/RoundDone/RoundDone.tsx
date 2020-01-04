@@ -53,7 +53,7 @@ const RoundDone = () => {
         <>
           <TrickPicker value={tricks} onChange={setTricks} minZero={true} />
           <div className="ViewActions">
-            <Button onClick={() => setPoints()} disabled={!tricks}>
+            <Button onClick={() => setPoints()} disabled={tricks === undefined}>
               Punkte berechnen...
             </Button>
           </div>
