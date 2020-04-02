@@ -56,6 +56,7 @@ const InitNew: React.FC<Props> = ({ onCreation, onBack }) => {
         step: GameStep.Scoreboard,
         rounds: [],
         shortcut: await getCollisonSafeShortcut(),
+        gameOver: false,
       } as Game),
       gamesCollection
         .doc(gameId)

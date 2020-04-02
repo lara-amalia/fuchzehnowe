@@ -12,6 +12,7 @@ export interface Game {
   rounds: Round[]
   step: GameStep
   shortcut: string | null
+  gameOver: boolean
 }
 
 export interface Player {
@@ -29,6 +30,7 @@ export enum GameStep {
   Scoreboard = 'scoreboard',
   Setup = 'setup',
   Playing = 'playing',
+  Over = 'over',
 }
 
 export enum Suit {

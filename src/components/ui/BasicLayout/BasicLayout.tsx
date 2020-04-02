@@ -20,7 +20,7 @@ const BasicLayout: React.FC<Props> = ({
   return (
     <>
       <Header leftItem={leftHeaderItem} userName={userName} />
-      <div className={clsx('BasicLayout', `BasicLayout--${alignment}`)}>
+      <div className={clsx('BasicLayout', alignment && `BasicLayout--${alignment}`)}>
         <h1 className="BasicLayout-title">{title}</h1>
         {children}
       </div>

@@ -4,10 +4,11 @@ import { Game, GameInfo, GameStep, Id, Player } from '../../../types'
 import { unwrapDocument, unwrapQuery } from '../../../util/data'
 import { GameContext } from '../../../util/useGame'
 import BasicLayout from '../../ui/BasicLayout'
+import { LOCAL_STORAGE_KEY } from '../GameState'
 import GamePlaying from './GamePlaying'
 import RoundSetup from './RoundSetup'
 import Scoreboard from './Scoreboard'
-import { LOCAL_STORAGE_KEY } from '../GameState'
+import GameOver from './GameOver'
 
 interface Props {
   gameInfo: GameInfo
@@ -30,7 +31,7 @@ const GameView: React.FC<Props> = ({ gameInfo, setGameInfo }) => {
       gameDoc.onSnapshot(s => {
         const gameData = unwrapDocument<Game>(s)
 
-        if (!gameData) {
+        if (!gameData || gameData.gameOver) {
           window.localStorage.removeItem(LOCAL_STORAGE_KEY)
           setGameInfo(undefined)
         }
@@ -76,6 +77,8 @@ const GameView: React.FC<Props> = ({ gameInfo, setGameInfo }) => {
             return <RoundSetup />
           case GameStep.Playing:
             return <GamePlaying />
+          case GameStep.Over:
+            return <GameOver setGameInfo={setGameInfo} />
           default:
             return (
               <BasicLayout title="Unknown game state">

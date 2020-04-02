@@ -15,6 +15,7 @@ export const GameContext = createContext<GameContext>({
     step: GameStep.Scoreboard,
     rounds: [],
     shortcut: null,
+    gameOver: false,
   },
   gameInfo: {
     gameId: '',

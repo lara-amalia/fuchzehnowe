@@ -35,7 +35,7 @@ const Scoreboard = () => {
     if (gameInfo.userId === game.adminId || players.length === 2) {
       if (
         window.confirm(
-          'Willst du das Spiel wirklich beenden? (Der gesamte Spielstand und alle Spieler werden dabei gelöscht.)',
+          'Willst du das Spiel wirklich abbrechen? (Der gesamte Spielstand und alle Spieler werden dabei gelöscht.)',
         )
       ) {
         await Promise.all([

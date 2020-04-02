@@ -1,0 +1,22 @@
+.GameOver-winners {
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 24px;
+}
+
+.GameOver-rounds {
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 20px;
+}
+
+.GameOver-scoreboard ol {
+  margin-top: 0;
+}
+
+.GameOver-scoreboard li {
+  margin-bottom: 0.5rem;
+}
+
+.GameOver-player-me {
+  color: #d75c37;
+  font-weight: bold;
+}

@@ -18,6 +18,9 @@ const GamePlaying = () => {
       return
     }
 
+    /*
+     * Round is done when every user has entered their points of the current round.
+     */
     const roundFinished = !players.find(
       pd =>
         pd.points.length === currentRound ||
@@ -25,13 +28,26 @@ const GamePlaying = () => {
     )
 
     if (roundFinished) {
+      /*
+       * After each round, check if game is over.
+       */
+      const gameFinished = players.find(
+        pd => pd.points[game.rounds.length] <= -1,
+      )
+
+      const gameStep = gameFinished
+        ? ({
+            step: GameStep.Over,
+          } as Partial<Game>)
+        : ({
+            step: GameStep.Scoreboard,
+          } as Partial<Game>)
+
       firebase
         .firestore()
         .collection('games')
         .doc(game.id)
-        .update({
-          step: GameStep.Scoreboard,
-        } as Partial<Game>)
+        .update(gameStep)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game, players])
