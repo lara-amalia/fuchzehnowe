@@ -5,6 +5,7 @@ import BellsIcon from '../../../ui/BellsIcon'
 import AcornsIcon from '../../../ui/AcornsIcon'
 import LeavesIcon from '../../../ui/LeavesIcon'
 import BackButton from '../../../ui/BackButton'
+import './styles.css'
 
 interface Props {
   onBack: () => void
@@ -46,6 +47,16 @@ const InitAbout: React.FC<Props> = ({ onBack }) => {
           GitHub
         </a>
         .
+      </p>
+      <p className="InitAbout-meta-text">
+        Build{' '}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`https://github.com/lara-amalia/fuchzehnowe/commit/${process.env.REACT_APP_RELEASE}`}
+        >
+          {process.env.REACT_APP_RELEASE}
+        </a>
       </p>
     </BasicLayout>
   )
