@@ -8,20 +8,25 @@ import Button from '../../../ui/Button'
 import TrickPicker from '../../../ui/TrickPicker'
 import './styles.css'
 import { PLAYING_PLACEHOLDER } from '../RoundOverview'
+import RoundSummary from '../../../ui/RoundSummary'
 
 const RoundDone = () => {
-  const { game, gameInfo, currentPlayer, currentRound } = useGame()
+  const { game, gameInfo, currentPlayer, currentRound, players } = useGame()
   const [tricks, setTricks] = useState<number>()
+
+  const currentRoundData = game.rounds[game.rounds.length - 1]
+  const currentRoundPlayer = players.find(
+    p => p.id === currentRoundData.player,
+  )!
+  const userIsCurrentRoundPlayer =
+    currentRoundData.player === currentPlayer.id
 
   const userPlayed =
     currentPlayer.points[currentPlayer.points.length - 1] ===
     PLAYING_PLACEHOLDER
 
   const setPoints = () => {
-    const currentRoundData = game.rounds[game.rounds.length - 1]
     const heartWasTrump = currentRoundData.trump === Suit.Hearts
-    const userIsCurrentRoundPlayer =
-      currentRoundData.player === currentPlayer.id
 
     let delta = heartWasTrump ? -2 * tricks! : -tricks!
     // If player could not make one trick or could not reach promised amount of tricks
@@ -51,6 +56,13 @@ const RoundDone = () => {
     <BasicLayout title={`Runde #${currentRound}`} userName={currentPlayer.name}>
       {userPlayed ? (
         <>
+          <RoundSummary
+            name={currentRoundPlayer.name}
+            tricks={currentRoundData.tricks}
+            trump={currentRoundData.trump}
+            itIsYou={userIsCurrentRoundPlayer}
+          />
+          <h2>Meine Stiche</h2>
           <TrickPicker value={tricks} onChange={setTricks} minZero={true} />
           <div className="ViewActions">
             <Button onClick={() => setPoints()} disabled={tricks === undefined}>

@@ -4,8 +4,8 @@ import { Player, Suit } from '../../../../types'
 import useGame from '../../../../util/useGame'
 import BasicLayout from '../../../ui/BasicLayout'
 import Button from '../../../ui/Button'
-import { getSuitIcon } from '../../../ui/SuitPicker'
 import './styles.css'
+import RoundSummary from '../../../ui/RoundSummary'
 
 export const PLAYING_PLACEHOLDER = -999
 const PASS_HEART_TRUMP_POINTS = 2
@@ -66,24 +66,12 @@ const RoundOverview = () => {
 
   return (
     <BasicLayout title={`Runde #${currentRound}`} userName={currentPlayer.name}>
-      <p>
-        <span className="RoundOverview-highlight">
-          {currentRoundPlayer.name}
-        </span>
-        <br />
-        macht{' '}
-        <span className="RoundOverview-highlight">
-          {currentRoundData.tricks}
-        </span>{' '}
-        {currentRoundData.tricks > 1 ? 'Stiche' : 'Stich'}
-        <br />
-        <br />
-        <span className="RoundOverview-highlight">
-          {getSuitIcon(currentRoundData.trump, '#23272b', 80)}
-        </span>
-        <br />
-        ist Trumpf
-      </p>
+      <RoundSummary
+        name={currentRoundPlayer.name}
+        tricks={currentRoundData.tricks}
+        trump={currentRoundData.trump}
+        itIsYou={currentPlayer.id === currentRoundPlayer.id}
+      />
       <div className="RoundOverview-actions">
         <Button onClick={() => onDecide(true)}>Bin dabei</Button>
         <Button
