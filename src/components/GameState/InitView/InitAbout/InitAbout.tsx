@@ -1,4 +1,5 @@
-import React from 'react'
+import * as firebase from 'firebase/app'
+import React, { useEffect, useState } from 'react'
 import BasicLayout from '../../../ui/BasicLayout'
 import HeartsIcon from '../../../ui/HeartsIcon'
 import BellsIcon from '../../../ui/BellsIcon'
@@ -12,6 +13,21 @@ interface Props {
 }
 
 const InitAbout: React.FC<Props> = ({ onBack }) => {
+  const [gamesFinished, setGamesFinished] = useState()
+
+  useEffect(() => {
+    async function fetchGamesCount() {
+      const gamesFinished = (await firebase
+        .firestore()
+        .collection('games')
+        .where('gameOver', '==', true)
+        .get()).docs.length
+
+      setGamesFinished(gamesFinished)
+    }
+
+    fetchGamesCount()
+  }, [])
   return (
     <BasicLayout
       title="Infos"
@@ -26,8 +42,6 @@ const InitAbout: React.FC<Props> = ({ onBack }) => {
       <div>
         <HeartsIcon size={70} color="#23272b" />
         <BellsIcon size={70} color="#23272b" />
-        <AcornsIcon size={70} color="#23272b" />
-        <LeavesIcon size={70} color="#23272b" />
       </div>
       <p>
         Noch Fragen oder einen Bug gefunden? Dann findest du mich auf{' '}
@@ -48,6 +62,11 @@ const InitAbout: React.FC<Props> = ({ onBack }) => {
         </a>
         .
       </p>
+      <div>
+        <AcornsIcon size={70} color="#23272b" />
+        <LeavesIcon size={70} color="#23272b" />
+      </div>
+      {gamesFinished && <p>Gespielte Spiele: {gamesFinished}</p>}
       <p className="InitAbout-meta-text">
         Build{' '}
         <a

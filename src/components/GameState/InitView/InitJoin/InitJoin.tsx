@@ -45,7 +45,7 @@ const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
       return
     }
 
-    gamesCollection
+    await gamesCollection
       .doc(existingGame.id)
       .collection('players')
       .doc(userId)
