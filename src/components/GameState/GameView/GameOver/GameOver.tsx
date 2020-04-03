@@ -1,4 +1,4 @@
-import * as firebase from 'firebase'
+import * as firebase from 'firebase/app'
 import React from 'react'
 import BasicLayout from '../../../ui/BasicLayout'
 import useGame from '../../../../util/useGame'
