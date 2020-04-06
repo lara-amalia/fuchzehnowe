@@ -13,7 +13,7 @@ interface Props {
 }
 
 const InitAbout: React.FC<Props> = ({ onBack }) => {
-  const [gamesFinished, setGamesFinished] = useState()
+  const [gamesFinished, setGamesFinished] = useState<number>()
 
   useEffect(() => {
     async function fetchGamesCount() {

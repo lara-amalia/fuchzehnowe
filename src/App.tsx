@@ -1,8 +1,10 @@
 import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import * as firebase from 'firebase/app'
 import 'firebase/firestore'
 import GameState from './components/GameState'
 import './App.css'
+import GameStats from './components/GameStats'
 
 firebase.initializeApp({
   apiKey: 'AIzaSyANcUCFHaueADM2ak-RyjjZ_ZfuxeSxnnA',
@@ -17,7 +19,12 @@ firebase.initializeApp({
 const App: React.FC = () => {
   return (
     <div className="App">
-      <GameState />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={GameState} />
+          <Route path="/:gameId" component={GameStats} />
+        </Switch>
+      </Router>
     </div>
   )
 }
