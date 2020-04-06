@@ -1,8 +1,10 @@
 import * as firebase from 'firebase/app'
 import toPairs from 'lodash/toPairs'
 import React, { useEffect, useMemo, useState } from 'react'
+import { Line } from 'react-chartjs-2'
 import { useParams } from 'react-router-dom'
 import { Game, Id, Player, Suit } from '../../types'
+import { CHART_COLORS } from '../../util/constants'
 import BasicLayout from '../ui/BasicLayout'
 import { getSuitIcon } from '../ui/SuitPicker'
 import './styles.css'
@@ -131,9 +133,40 @@ const GameStats: React.FC = () => {
               )
             })}
           </div>
+          <div className="statsContent-lineChart">
+            <Line
+              data={{
+                labels: Array.from(players[0].points.keys()),
+                datasets: players.map((player, index) => ({
+                  label: player.name,
+                  data: player.points,
+                  fill: false,
+                  borderColor: CHART_COLORS[index],
+                })),
+              }}
+              legend={{
+                labels: {
+                  fontColor: '#ffffff',
+                },
+              }}
+            />
+          </div>
         </div>
         <div className="statsContent-left">
           <h2>Die Spieler</h2>
+          <h3>Punktestand nach der letzten Runde</h3>
+          <ol>
+            {players
+              .sort(
+                (a, b) =>
+                  a.points[a.points.length - 1] - b.points[b.points.length - 1],
+              )
+              .map((player) => (
+                <li key={player.name}>
+                  {player.name}: {player.points[player.points.length - 1]}
+                </li>
+              ))}
+          </ol>
           <h3>Gefallen</h3>
           <ol>
             {playersStats

@@ -15,3 +15,7 @@
   display: flex;
   justify-content: center;
 }
+
+.statsContent-lineChart {
+  margin: 2rem 0;
+}
