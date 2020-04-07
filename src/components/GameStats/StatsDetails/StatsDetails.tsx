@@ -112,13 +112,15 @@ const StatsDetails: React.FC = () => {
   }, [game])
 
   if (!game || !players) {
-    return <BasicLayout
-      title="Loading..."
-      leftHeaderItem={<BackLink href="/" />}
-      alignment="left"
-    >
-      <p>Lade Statistik...</p>
-    </BasicLayout>
+    return (
+      <BasicLayout
+        title="Loading..."
+        leftHeaderItem={<BackLink href="/" />}
+        alignment="left"
+      >
+        <p>Lade Statistik...</p>
+      </BasicLayout>
+    )
   }
 
   return (
@@ -129,6 +131,9 @@ const StatsDetails: React.FC = () => {
     >
       <div className="statsContent">
         <div className="statsContent-centered">
+          {!game.gameOver && (
+            <p>Das Spiel läuft noch oder wurde nicht zu Ende gespielt…</p>
+          )}
           <h2>Das Spiel</h2>
           <h3>Gespielte Runden</h3>
           <p>{gameStats.roundsTotal}</p>
@@ -156,8 +161,24 @@ const StatsDetails: React.FC = () => {
               }}
               legend={{
                 labels: {
-                  fontColor: '#ffffff',
+                  fontColor: '#dddddd',
+                  fontSize: 14,
                 },
+              }}
+              options={{
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      fontColor: '#dddddd',
+                      suggestedMin: -1,
+                    }
+                  }],
+                  xAxes: [{
+                    ticks: {
+                      fontColor: '#dddddd',
+                    }
+                  }]
+                }
               }}
             />
           </div>
