@@ -1,10 +1,10 @@
 import * as firebase from 'firebase/app'
 import React from 'react'
-import BasicLayout from '../../../ui/BasicLayout'
-import useGame from '../../../../util/useGame'
 import { Game, GameInfo } from '../../../../types'
+import { removeGameFromLocalStorage } from '../../../../util/handleGameIdsInLocalStorage'
+import useGame from '../../../../util/useGame'
+import BasicLayout from '../../../ui/BasicLayout'
 import Button from '../../../ui/Button'
-import { LOCAL_STORAGE_KEY } from '../../GameState'
 import './styles.css'
 
 interface Props {
@@ -14,15 +14,13 @@ interface Props {
 const GameOver: React.FC<Props> = ({ setGameInfo }) => {
   const { game, gameInfo, currentPlayer, players } = useGame()
 
-  const winners = players.filter(p => p.points && p.points[p.points.length - 1] <= -1)
+  const winners = players.filter(
+    (p) => p.points && p.points[p.points.length - 1] <= -1,
+  )
 
   const endGame = () => {
-    if (
-      window.confirm(
-        'Willst du das Spiel wirklich beenden?',
-      )
-    ) {
-      window.localStorage.removeItem(LOCAL_STORAGE_KEY)
+    if (window.confirm('Willst du das Spiel wirklich beenden?')) {
+      removeGameFromLocalStorage(gameInfo.gameId, true)
       setGameInfo(undefined)
       firebase
         .firestore()
@@ -40,7 +38,7 @@ const GameOver: React.FC<Props> = ({ setGameInfo }) => {
         {winners.length > 1 ? <>Die Gewinner sind:</> : <>Der Gewinner ist:</>}{' '}
         <br />
         <span className="GameOver-winners">
-          {winners.map(w => w.name).join(',')}
+          {winners.map((w) => w.name).join(',')}
         </span>
       </p>
       <p>
@@ -56,7 +54,7 @@ const GameOver: React.FC<Props> = ({ setGameInfo }) => {
               (a, b) =>
                 a.points[a.points.length - 1] - b.points[b.points.length - 1],
             )
-            .map(p => (
+            .map((p) => (
               <li
                 key={p.id}
                 className={
@@ -68,7 +66,9 @@ const GameOver: React.FC<Props> = ({ setGameInfo }) => {
             ))}
         </ol>
       </div>
-      {game.adminId === gameInfo.userId && <Button onClick={endGame}>Spiel beenden</Button>}
+      {game.adminId === gameInfo.userId && (
+        <Button onClick={endGame}>Spiel beenden</Button>
+      )}
     </BasicLayout>
   )
 }

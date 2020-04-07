@@ -1,17 +1,13 @@
 import React, { useState } from 'react'
 import { GameInfo } from '../../../types'
-import InitAbout from './InitAbout'
 import InitJoin from './InitJoin'
 import InitNew from './InitNew'
-import InitRules from './InitRules'
 import InitSelect from './InitSelect'
 
 export enum InitState {
   Select,
   New,
   Join,
-  Rules,
-  About,
 }
 
 interface Props {
@@ -43,10 +39,6 @@ const InitView: React.FC<Props> = ({ onGameInfoSelect }) => {
           onBack={() => setInitState(InitState.Select)}
         />
       )
-    case InitState.Rules:
-      return <InitRules onBack={() => setInitState(InitState.Select)} />
-    case InitState.About:
-      return <InitAbout onBack={() => setInitState(InitState.Select)} />
   }
 }
 

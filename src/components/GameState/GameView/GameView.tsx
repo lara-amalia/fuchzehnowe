@@ -2,13 +2,13 @@ import * as firebase from 'firebase/app'
 import React, { useEffect, useState } from 'react'
 import { Game, GameInfo, GameStep, Id, Player } from '../../../types'
 import { unwrapDocument, unwrapQuery } from '../../../util/data'
+import { removeGameFromLocalStorage } from '../../../util/handleGameIdsInLocalStorage'
 import { GameContext } from '../../../util/useGame'
 import BasicLayout from '../../ui/BasicLayout'
-import { LOCAL_STORAGE_KEY } from '../GameState'
+import GameOver from './GameOver'
 import GamePlaying from './GamePlaying'
 import RoundSetup from './RoundSetup'
 import Scoreboard from './Scoreboard'
-import GameOver from './GameOver'
 
 interface Props {
   gameInfo: GameInfo
@@ -19,7 +19,7 @@ const GameView: React.FC<Props> = ({ gameInfo, setGameInfo }) => {
   const [game, setGame] = useState<Game & Id>()
   const [players, setPlayers] = useState<(Player & Id)[]>([])
 
-  const currentPlayer = players.find(p => p.id === gameInfo.userId)
+  const currentPlayer = players.find((p) => p.id === gameInfo.userId)
 
   useEffect(() => {
     const gameDoc = firebase
@@ -28,21 +28,21 @@ const GameView: React.FC<Props> = ({ gameInfo, setGameInfo }) => {
       .doc(gameInfo.gameId)
 
     const unsubscribeArr = [
-      gameDoc.onSnapshot(s => {
+      gameDoc.onSnapshot((s) => {
         const gameData = unwrapDocument<Game>(s)
 
         if (!gameData || gameData.gameOver) {
-          window.localStorage.removeItem(LOCAL_STORAGE_KEY)
+          removeGameFromLocalStorage(gameInfo.gameId)
           setGameInfo(undefined)
         }
 
         setGame(gameData)
       }),
-      gameDoc.collection('players').onSnapshot(s => {
+      gameDoc.collection('players').onSnapshot((s) => {
         const playerData = unwrapQuery<Player>(s)
 
-        if (!playerData.find(p => p.id === gameInfo.userId)) {
-          window.localStorage.removeItem(LOCAL_STORAGE_KEY)
+        if (!playerData.find((p) => p.id === gameInfo.userId)) {
+          removeGameFromLocalStorage(gameInfo.gameId)
           setGameInfo(undefined)
         }
 
@@ -50,7 +50,7 @@ const GameView: React.FC<Props> = ({ gameInfo, setGameInfo }) => {
       }),
     ]
 
-    return () => unsubscribeArr.forEach(u => u())
+    return () => unsubscribeArr.forEach((u) => u())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameInfo.gameId])
 

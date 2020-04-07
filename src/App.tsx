@@ -1,23 +1,38 @@
-import React from 'react'
 import * as firebase from 'firebase/app'
 import 'firebase/firestore'
-import GameState from './components/GameState'
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css'
+import GameState from './components/GameState'
+import InitAbout from './components/GameState/InitView/InitAbout'
+import InitRules from './components/GameState/InitView/InitRules'
+import StatsDetails from './components/GameStats/StatsDetails'
+import StatsOverview from './components/GameStats/StatsOverview'
 
-firebase.initializeApp({
-  apiKey: 'AIzaSyANcUCFHaueADM2ak-RyjjZ_ZfuxeSxnnA',
-  authDomain: 'fuchzehnowe.firebaseapp.com',
-  databaseURL: 'https://fuchzehnowe.firebaseio.com',
-  projectId: 'fuchzehnowe',
-  storageBucket: 'fuchzehnowe.appspot.com',
-  messagingSenderId: '861184582125',
-  appId: '1:861184582125:web:325d966a629dbcebebc7e4',
-})
+if (firebase.apps.length === 0) {
+  firebase.initializeApp({
+    apiKey: 'AIzaSyANcUCFHaueADM2ak-RyjjZ_ZfuxeSxnnA',
+    authDomain: 'fuchzehnowe.firebaseapp.com',
+    databaseURL: 'https://fuchzehnowe.firebaseio.com',
+    projectId: 'fuchzehnowe',
+    storageBucket: 'fuchzehnowe.appspot.com',
+    messagingSenderId: '861184582125',
+    appId: '1:861184582125:web:325d966a629dbcebebc7e4',
+  })
+}
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <GameState />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={GameState} />
+          <Route exact path="/about" component={InitAbout} />
+          <Route exact path="/rules" component={InitRules} />
+          <Route exact path="/stats" component={StatsOverview} />
+          <Route path="/stats/:gameId" component={StatsDetails} />
+        </Switch>
+      </Router>
     </div>
   )
 }

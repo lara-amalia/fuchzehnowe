@@ -1,0 +1,21 @@
+.statsContent {
+  width: 100%;
+}
+
+.statsContent-left {
+  text-align: left;
+}
+
+.statsContent-centered {
+  text-align: center;
+  font-weight: 700;
+}
+
+.statsContent-trumps {
+  display: flex;
+  justify-content: center;
+}
+
+.statsContent-lineChart {
+  margin: 2rem 0;
+}

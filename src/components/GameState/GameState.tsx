@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import { GameInfo } from '../../types'
+import { storeGameIdToLocalStorage } from '../../util/handleGameIdsInLocalStorage'
 import GameView from './GameView'
 import InitView from './InitView'
-
-export const LOCAL_STORAGE_KEY = 'fuchzehnowe'
 
 const GameState: React.FC = () => {
   const [gameInfo, setGameInfo] = useState<GameInfo>()
 
   const initGameInfo = (gameInfo: GameInfo) => {
-    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(gameInfo))
+    storeGameIdToLocalStorage(gameInfo)
     setGameInfo(gameInfo)
   }
 

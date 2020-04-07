@@ -4,12 +4,11 @@
 
 .App {
   background-color: #23272b;
-  color: #fff;
+  color: #ddd;
   min-height: 100vh;
   font-family: 'Lato', Arial, Helvetica, sans-serif;
   font-size: 18px;
   line-height: 1.5;
-  min-height: 100vh;
 }
 
 .App-header {

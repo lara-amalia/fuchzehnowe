@@ -3,6 +3,11 @@ export interface GameInfo {
   userId: string
 }
 
+export interface LocalStorageGameInfo {
+  id: string
+  created: number
+}
+
 export interface Id {
   id: string
 }

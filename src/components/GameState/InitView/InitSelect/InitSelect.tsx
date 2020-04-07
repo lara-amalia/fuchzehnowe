@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { GameInfo } from '../../../../types'
+import { LOCAL_STORAGE_KEY } from '../../../../util/constants'
 import Button from '../../../ui/Button'
-import { LOCAL_STORAGE_KEY } from '../../GameState'
 import { InitState } from '../InitView'
 import './styles.css'
 
@@ -32,21 +32,11 @@ const InitSelect: React.FC<Props> = ({ onSelection, onResume }) => {
           Weiterspielen
         </Button>
       </div>
-      <p>
-        <Button
-          onClick={() => onSelection(InitState.Rules)}
-          variant="secondary"
-        >
-          Spielregeln
-        </Button>
-        <br />
-        <Button
-          onClick={() => onSelection(InitState.About)}
-          variant="secondary"
-        >
-          Infos
-        </Button>
-      </p>
+      <nav className="InitSelect-nav">
+        <a href="/stats">Statistiken</a>
+        <a href="/rules">Spielregeln</a>
+        <a href="/about">Infos</a>
+      </nav>
     </div>
   )
 }
