@@ -3,10 +3,11 @@ import toPairs from 'lodash/toPairs'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Line } from 'react-chartjs-2'
 import { useParams } from 'react-router-dom'
-import { Game, Id, Player, Suit } from '../../types'
-import { CHART_COLORS } from '../../util/constants'
-import BasicLayout from '../ui/BasicLayout'
-import { getSuitIcon } from '../ui/SuitPicker'
+import { Game, Id, Player, Suit } from '../../../types'
+import { CHART_COLORS } from '../../../util/constants'
+import BackLink from '../../ui/BackLink'
+import BasicLayout from '../../ui/BasicLayout'
+import { getSuitIcon } from '../../ui/SuitPicker'
 import './styles.css'
 
 interface PlayerStat {
@@ -21,7 +22,7 @@ interface GameStats {
   trumpCount: Map<string, number>
 }
 
-const GameStats: React.FC = () => {
+const StatsDetails: React.FC = () => {
   const { gameId } = useParams()
   const [game, setGame] = useState<Game>()
   const [players, setPlayers] = useState<(Player & Id)[]>()
@@ -111,14 +112,23 @@ const GameStats: React.FC = () => {
   }, [game])
 
   if (!game || !players) {
-    return <p>loading stats...</p>
+    return <BasicLayout
+      title="Loading..."
+      leftHeaderItem={<BackLink href="/" />}
+      alignment="left"
+    >
+      <p>Lade Statistik...</p>
+    </BasicLayout>
   }
 
   return (
-    <BasicLayout title="Spiel Statistiken" alignment="left">
+    <BasicLayout
+      title="Spiel Statistiken"
+      leftHeaderItem={<BackLink href="/stats" />}
+      alignment="left"
+    >
       <div className="statsContent">
         <div className="statsContent-centered">
-          <p>gameID: {gameId} chart?</p>
           <h2>Das Spiel</h2>
           <h3>Gespielte Runden</h3>
           <p>{gameStats.roundsTotal}</p>
@@ -203,4 +213,4 @@ const GameStats: React.FC = () => {
   )
 }
 
-export default GameStats
+export default StatsDetails

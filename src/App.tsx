@@ -4,7 +4,8 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css'
 import GameState from './components/GameState'
-import GameStats from './components/GameStats'
+import StatsDetails from './components/GameStats/StatsDetails'
+import StatsOverview from './components/GameStats/StatsOverview'
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp({
@@ -24,7 +25,8 @@ const App: React.FC = () => {
       <Router>
         <Switch>
           <Route exact path="/" component={GameState} />
-          <Route path="/:gameId" component={GameStats} />
+          <Route exact path="/stats" component={StatsOverview} />
+          <Route path="/stats/:gameId" component={StatsDetails} />
         </Switch>
       </Router>
     </div>

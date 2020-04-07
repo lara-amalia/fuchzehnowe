@@ -7,3 +7,7 @@ export const CHART_COLORS = [
   '#bb416a',
   '#a79c3f',
 ]
+
+export const LOCAL_STORAGE_KEY = 'fuchzehnowe'
+
+export const LOCAL_STORAGE_KEY_STATS = 'fuchzehnoweIdList'

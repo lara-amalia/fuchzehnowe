@@ -1,10 +1,10 @@
 import * as firebase from 'firebase/app'
 import React from 'react'
+import { LOCAL_STORAGE_KEY } from '../../../../util/constants'
 import BasicLayout from '../../../ui/BasicLayout'
 import useGame from '../../../../util/useGame'
 import { Game, GameInfo } from '../../../../types'
 import Button from '../../../ui/Button'
-import { LOCAL_STORAGE_KEY } from '../../GameState'
 import './styles.css'
 
 interface Props {

@@ -1,0 +1,16 @@
+.BackLink {
+  display: block;
+  line-height: 1;
+  margin: 0;
+  padding: 0.5rem;
+  border-radius: 16px;
+}
+
+.BackLink:hover {
+  background-color: #4e565c;
+}
+
+.BackLink:focus {
+  outline: none;
+  box-shadow: 0 0 3px 6px #4e565c;
+}

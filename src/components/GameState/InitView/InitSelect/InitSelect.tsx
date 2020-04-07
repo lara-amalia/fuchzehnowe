@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { GameInfo } from '../../../../types'
+import { LOCAL_STORAGE_KEY } from '../../../../util/constants'
 import Button from '../../../ui/Button'
-import { LOCAL_STORAGE_KEY } from '../../GameState'
 import { InitState } from '../InitView'
 import './styles.css'
 
@@ -46,6 +46,10 @@ const InitSelect: React.FC<Props> = ({ onSelection, onResume }) => {
         >
           Infos
         </Button>
+        <br />
+        <a href="/stats">
+          Statistiken
+        </a>
       </p>
     </div>
   )
