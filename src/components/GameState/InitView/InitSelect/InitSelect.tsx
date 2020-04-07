@@ -32,25 +32,11 @@ const InitSelect: React.FC<Props> = ({ onSelection, onResume }) => {
           Weiterspielen
         </Button>
       </div>
-      <p>
-        <Button
-          onClick={() => onSelection(InitState.Rules)}
-          variant="secondary"
-        >
-          Spielregeln
-        </Button>
-        <br />
-        <Button
-          onClick={() => onSelection(InitState.About)}
-          variant="secondary"
-        >
-          Infos
-        </Button>
-        <br />
-        <a href="/stats">
-          Statistiken
-        </a>
-      </p>
+      <nav className="InitSelect-nav">
+        <a href="/stats">Statistiken</a>
+        <a href="/rules">Spielregeln</a>
+        <a href="/about">Infos</a>
+      </nav>
     </div>
   )
 }

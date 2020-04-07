@@ -4,6 +4,8 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css'
 import GameState from './components/GameState'
+import InitAbout from './components/GameState/InitView/InitAbout'
+import InitRules from './components/GameState/InitView/InitRules'
 import StatsDetails from './components/GameStats/StatsDetails'
 import StatsOverview from './components/GameStats/StatsOverview'
 
@@ -25,6 +27,8 @@ const App: React.FC = () => {
       <Router>
         <Switch>
           <Route exact path="/" component={GameState} />
+          <Route exact path="/about" component={InitAbout} />
+          <Route exact path="/rules" component={InitRules} />
           <Route exact path="/stats" component={StatsOverview} />
           <Route path="/stats/:gameId" component={StatsDetails} />
         </Switch>

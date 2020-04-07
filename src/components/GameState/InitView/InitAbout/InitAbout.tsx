@@ -1,27 +1,25 @@
 import * as firebase from 'firebase/app'
 import React, { useEffect, useState } from 'react'
-import BasicLayout from '../../../ui/BasicLayout'
-import HeartsIcon from '../../../ui/HeartsIcon'
-import BellsIcon from '../../../ui/BellsIcon'
 import AcornsIcon from '../../../ui/AcornsIcon'
+import BackLink from '../../../ui/BackLink'
+import BasicLayout from '../../../ui/BasicLayout'
+import BellsIcon from '../../../ui/BellsIcon'
+import HeartsIcon from '../../../ui/HeartsIcon'
 import LeavesIcon from '../../../ui/LeavesIcon'
-import BackButton from '../../../ui/BackButton'
 import './styles.css'
 
-interface Props {
-  onBack: () => void
-}
-
-const InitAbout: React.FC<Props> = ({ onBack }) => {
+const InitAbout = () => {
   const [gamesFinished, setGamesFinished] = useState<number>()
 
   useEffect(() => {
     async function fetchGamesCount() {
-      const gamesFinished = (await firebase
-        .firestore()
-        .collection('games')
-        .where('gameOver', '==', true)
-        .get()).docs.length
+      const gamesFinished = (
+        await firebase
+          .firestore()
+          .collection('games')
+          .where('gameOver', '==', true)
+          .get()
+      ).docs.length
 
       setGamesFinished(gamesFinished)
     }
@@ -31,7 +29,7 @@ const InitAbout: React.FC<Props> = ({ onBack }) => {
   return (
     <BasicLayout
       title="Infos"
-      leftHeaderItem={<BackButton onClick={onBack} />}
+      leftHeaderItem={<BackLink href="/" />}
       alignment="left"
     >
       <p>

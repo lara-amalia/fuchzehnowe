@@ -1,20 +1,16 @@
 import React from 'react'
-import BasicLayout from '../../../ui/BasicLayout'
-import HeartsIcon from '../../../ui/HeartsIcon'
-import BellsIcon from '../../../ui/BellsIcon'
 import AcornsIcon from '../../../ui/AcornsIcon'
+import BackLink from '../../../ui/BackLink'
+import BasicLayout from '../../../ui/BasicLayout'
+import BellsIcon from '../../../ui/BellsIcon'
+import HeartsIcon from '../../../ui/HeartsIcon'
 import LeavesIcon from '../../../ui/LeavesIcon'
-import BackButton from '../../../ui/BackButton'
 
-interface Props {
-  onBack: () => void
-}
-
-const InitRules: React.FC<Props> = ({ onBack }) => {
+const InitRules = () => {
   return (
     <BasicLayout
       title="Spielregeln"
-      leftHeaderItem={<BackButton onClick={onBack} />}
+      leftHeaderItem={<BackLink href="/" />}
       alignment="left"
     >
       <p>
