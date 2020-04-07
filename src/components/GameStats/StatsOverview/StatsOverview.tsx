@@ -1,18 +1,14 @@
 import React, { useRef } from 'react'
+import { LocalStorageGameInfo } from '../../../types'
 import { LOCAL_STORAGE_KEY_STATS } from '../../../util/constants'
 import BackLink from '../../ui/BackLink'
 import BasicLayout from '../../ui/BasicLayout'
-
-interface IdInfo {
-  id: string
-  created: number
-}
 
 const StatsOverview: React.FC = () => {
   const storedGameIds = useRef(
     window.localStorage.getItem(LOCAL_STORAGE_KEY_STATS),
   )
-  let idInfoList: IdInfo[] = []
+  let idInfoList: LocalStorageGameInfo[] = []
   if (storedGameIds.current) {
     idInfoList = JSON.parse(storedGameIds.current)
   }
