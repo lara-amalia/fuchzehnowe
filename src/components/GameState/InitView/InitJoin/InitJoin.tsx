@@ -2,10 +2,10 @@ import * as firebase from 'firebase/app'
 import React, { useState } from 'react'
 import { GameInfo, Suit } from '../../../../types'
 import { FUCHZEHN } from '../../../../util/constants'
+import BackButton from '../../../ui/BackButton'
 import BasicLayout from '../../../ui/BasicLayout'
 import GameShortcutSelect from '../../../ui/GameShortcutSelect'
 import { gameShortcutToString } from '../../../ui/GameShortcutSelect/'
-import BackButton from '../../../ui/BackButton'
 
 interface Props {
   onCreation: (gameInfo: GameInfo) => void
@@ -18,27 +18,31 @@ interface Props {
 const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
   const [username, setUsername] = useState('')
   const [gameShortcut, setGameShortcut] = useState<Suit[]>([])
+  const [joinClicked, setJoinClicked] = useState(false)
 
-  const canJoin = () => {
-    const usernameValid = /^[a-z]{3,}$/i.test(username)
-    const gameShortcutValid = gameShortcut.length === 4
-    return usernameValid && gameShortcutValid
-  }
+  const canJoin =
+    !joinClicked &&
+    (() => {
+      const usernameValid = /^[a-z]{3,}$/i.test(username)
+      const gameShortcutValid = gameShortcut.length === 4
+      return usernameValid && gameShortcutValid
+    })()
 
   /**
    * Creates a new user and adds it to the players collection
    * of the given game.
    */
   const joinGame = async (e: React.FormEvent) => {
+    setJoinClicked(true)
     e.preventDefault()
 
     const gamesCollection = firebase.firestore().collection('games')
     const gameShortcutString = gameShortcutToString(gameShortcut)
     const userId = gamesCollection.doc().id
 
-    const existingGame = (await gamesCollection
-      .where('shortcut', '==', gameShortcutString)
-      .get()).docs[0]
+    const existingGame = (
+      await gamesCollection.where('shortcut', '==', gameShortcutString).get()
+    ).docs[0]
 
     if (!existingGame) {
       window.alert("Der Schlüssel zum Spiel ist falsch. Probier's nochmal!")
@@ -69,14 +73,14 @@ const InitJoin: React.FC<Props> = ({ onCreation, onBack }) => {
             name="username"
             placeholder="Dein Name"
             value={username}
-            onChange={e => setUsername(e.currentTarget.value)}
+            onChange={(e) => setUsername(e.currentTarget.value)}
           />
           <p className="hint-text">
             Der Name muss mind. 3 Zeichen lang sein und darf nur Buchstaben
             beinhalten.
           </p>
         </div>
-        <input type="submit" value="Mitspielen" disabled={!canJoin()} />
+        <input type="submit" value="Mitspielen" disabled={!canJoin} />
       </form>
     </BasicLayout>
   )
